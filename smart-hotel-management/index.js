@@ -1,3 +1,11 @@
+import express from 'express';
+import dotenv from 'dotenv';
+
+import usersRouter from './routes/users.js';
+import roomsRouter from './routes/rooms.js';
+import reservationsRouter from './routes/reservations.js';
+
+
 const express = require('express');
 const app = express();
 
