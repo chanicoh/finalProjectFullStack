@@ -1,16 +1,25 @@
-import express from 'express';
-import dotenv from 'dotenv';
+require("dotenv").config(); // ALLOWS ENVIRONMENT VARIABLES TO BE SET ON PROCESS.ENV SHOULD BE AT TOP
 
-import usersRouter from './routes/users.js';
-import roomsRouter from './routes/rooms.js';
-import reservationsRouter from './routes/reservations.js';
-
-
-const express = require('express');
+const express = require("express");
 const app = express();
 
-app.get('/' ,(req,res) => {
-    res.send("HELLO");
+// Middleware
+app.use(express.json()); // parse json bodies in the request object
+
+// Redirect requests to endpoint starting with /posts to postRoutes.js
+ app.use("/rooms", require("./routes/roomRoutes"));
+
+// Global Error Handler. IMPORTANT function params MUST start with err
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  console.log(err.name);
+  console.log(err.code);
+
+  res.status(500).json({
+    message: "Something went rely wrong",
+  });
 });
 
-app.listen(3000, ()=>console.log('listening on port 3000...'));
+// Listen on pc port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
