@@ -6,7 +6,7 @@ const app = express();
 // Middleware
 app.use(express.json()); // parse json bodies in the request object
 
-// Redirect requests to endpoint starting with /posts to postRoutes.js
+// Redirect requests node app.jsto endpoint starting with /posts to postRoutes.js
  app.use("/rooms", require("./routes/roomRoutes"));
 
 // Global Error Handler. IMPORTANT function params MUST start with err
