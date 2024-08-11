@@ -8,7 +8,7 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE,
   });
 
-let sql ="SELECT *FROM rooms;";
+let sql ="SELECT *FROM users;";
 pool.execute(sql,function (err,result){
   if(err) throw err
   console.log(result);
