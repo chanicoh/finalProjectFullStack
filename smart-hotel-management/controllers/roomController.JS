@@ -1,4 +1,4 @@
-const Room = require('../models/room');
+const Room = require('../models/roomModel');
 
 exports.getAllRooms = async (req, res, next) => {
   try {
@@ -9,6 +9,6 @@ exports.getAllRooms = async (req, res, next) => {
   }
 };
 exports.getRoomById = async (req, res, next) => {
-    res.send("Get Post ")
+    res.send("Get room ")
 }
 
