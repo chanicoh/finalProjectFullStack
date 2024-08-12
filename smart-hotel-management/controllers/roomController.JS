@@ -1,14 +1,12 @@
-const Room = require('../models/roomModel');
+const { getAllRooms } = require('../models/roomModel');
 
-exports.getAllRooms = async (req, res, next) => {
+const getRooms = async (req, res, next) => {
   try {
-    const [rooms] = await Room.fetchAll();
+    const rooms = await getAllRooms();
     res.status(200).json(rooms);
   } catch (err) {
     next(err);
   }
 };
-exports.getRoomById = async (req, res, next) => {
-    res.send("Get room ")
-}
 
+module.exports = { getRooms };

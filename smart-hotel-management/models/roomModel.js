@@ -1,10 +1,8 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-class Room {
-  static fetchAll() {
-    let sql = 'SELECT * FROM room;';
-    return db.execute(sql);
-  }
-}
+const getAllRooms = async () => {
+  const [rows] = await pool.query('SELECT * FROM rooms');
+  return rows;
+};
 
-module.exports = Room;
+module.exports = { getAllRooms };

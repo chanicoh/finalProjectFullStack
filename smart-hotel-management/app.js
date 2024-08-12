@@ -8,10 +8,10 @@ app.use(express.json()); // parse json bodies in the request object
 
 // Route handlers
 const userRoutes = require('./routes/userRoutes');
-//const roomRoutes = require('./routes/roomRoutes');
+const roomRoutes = require('./routes/roomRoutes');
 
 app.use('/api', userRoutes);
-//app.use('/api', roomRoutes);
+app.use('/api', roomRoutes);
 
 
 
