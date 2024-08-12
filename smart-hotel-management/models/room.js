@@ -1,5 +1,6 @@
 const db = require('../config/db');
 
+
 class Room {
   static fetchAll() {
     let sql = 'SELECT * FROM room;';
