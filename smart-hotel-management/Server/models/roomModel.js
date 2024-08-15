@@ -1,8 +1,9 @@
-const pool = require('../config/db');
+// // roomModel.js
+// const pool = require('../../config/db'); 
 
-const getAllRooms = async () => {
-  const [rows] = await pool.query('SELECT * FROM rooms');
-  return rows;
-};
+// const getAllRooms = async () => {
+//   const [rows] = await pool.query('SELECT * FROM rooms');
+//   return rows;
+// };
 
-module.exports = { getAllRooms };
+// module.exports = { getAllRooms };
