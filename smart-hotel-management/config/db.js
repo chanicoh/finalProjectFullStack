@@ -9,7 +9,7 @@ const pool = mysql.createPool({
 
   });
 
-let sql ="SELECT *FROM users;";
+let sql ="SELECT *FROM rooms;";
 
 console.log(sql)
 pool.execute(sql,function (err,result){

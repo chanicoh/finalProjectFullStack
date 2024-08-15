@@ -1,4 +1,5 @@
-const pool = require('../../config/db'); // Adjust path to your database configuration
+
+const pool = require('.../config/db'); // Adjust path to your database configuration
 
 // Create a new user
 const createUser = async (user) => {
