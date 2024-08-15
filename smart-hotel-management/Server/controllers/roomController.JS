@@ -1,4 +1,4 @@
-const { getAllRooms, getRoomById } = require('../models/roomModel');
+const { getAllRooms} = require('../models/roomModel');
 
 const getRooms = async (req, res, next) => {
     try {
