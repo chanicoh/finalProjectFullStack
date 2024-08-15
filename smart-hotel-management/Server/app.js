@@ -7,10 +7,12 @@ const app = express();
 app.use(express.json()); // parse json bodies in the request object
 
 // Route handlers
-const userRoutes = require('./routes/userRoutes');
+//const userRoutes = require('./routes/userRoutes');
+const roomRoutes = require('./routes/roomRoutes');
 
 
-app.use('/api', userRoutes);
+//app.use('/api', userRoutes);
+app.use('/api', roomRoutes);
 // Global Error Handler. IMPORTANT function params MUST start with err
 app.use((err, req, res, next) => {
   console.log(err.stack);
