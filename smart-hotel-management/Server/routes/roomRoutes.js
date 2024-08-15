@@ -1,7 +1,10 @@
-// const express = require('express');
-// const { getRooms } = require('../Server/controllers/roomController');
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
+const getRooms  = require('../controllers/roomController');
 
-// router.get('/rooms', getRooms);
 
-// module.exports = router;
+router.get('/rooms', getRooms);
+
+// Additional routes...
+
+module.exports = router;
