@@ -1,10 +1,9 @@
 const express = require('express');
-const {getRooms} = require('../controllers/roomController');
 const router = express.Router();
+const roomController = require('../controllers/roomController'); // Adjust path as needed
 
-
-router.get('/rooms', getRooms);
-
-// Additional routes...
+// Define routes with proper callback functions
+router.get('/rooms', roomController.getAllRooms);
+router.get('/rooms/:id', roomController.getRoomById);
 
 module.exports = router;

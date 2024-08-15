@@ -9,10 +9,18 @@ app.use(express.json()); // parse json bodies in the request object
 // Route handlers
 //const userRoutes = require('./routes/userRoutes');
 const roomRoutes = require('./routes/roomRoutes');
+const userRoutes = require('./routes/userRoutes');
+const billingRoutes = require('./routes/billingRoutes');
+const reservationRoutes = require('./routes/reservationRoutes');
+const serviceRequestRoutes = require('./routes/serviceRequestRoutes');
 
-
-//app.use('/api', userRoutes);
 app.use('/api', roomRoutes);
+app.use('/api', userRoutes);
+app.use('/api', billingRoutes);
+app.use('/api', reservationRoutes);
+app.use('/api', serviceRequestRoutes);
+
+
 // Global Error Handler. IMPORTANT function params MUST start with err
 app.use((err, req, res, next) => {
   console.log(err.stack);
