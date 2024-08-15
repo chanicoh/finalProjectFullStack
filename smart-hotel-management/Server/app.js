@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json()); // parse json bodies in the request object
 
 // Route handlers
-//const userRoutes = require('./routes/userRoutes');
+
 const roomRoutes = require('./routes/roomRoutes');
 const userRoutes = require('./routes/userRoutes');
 const billingRoutes = require('./routes/billingRoutes');
