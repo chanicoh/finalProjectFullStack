@@ -1,75 +1,41 @@
+const pool = require('../config/db');
 
-const pool = require('../config/db'); // Adjust path to your database configuration
-
-// Create a new user
 const createUser = async (user) => {
-  const { username, password, role, first_name, last_name, email,address, phone } = user;
+  const { username, password, role, first_name, last_name, email, address, phone } = user;
   const [result] = await pool.query(
-    `INSERT INTO Users (username, password, role, first_name, last_name, email,address, phone)
-     VALUES (?, ?, ?, ?, ?, ?, ?,?)`,
-    [username, password, role, first_name, last_name, email,address, phone]
+    `INSERT INTO users (username, password, role, first_name, last_name, email, address, phone)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [username, password, role, first_name, last_name, email, address, phone]
   );
   return result.insertId;
 };
 
-// Find a user by username
-const findUserByUsername = async (username) => {
-  const [rows] = await pool.query(
-    `SELECT * FROM Users WHERE username = ?`,
-    [username]
+const getAllUser = async () => {
+  const [rows] = await pool.query('SELECT *FROM users;');
+  return rows;
+};
+
+const getUserById = async (user_id) => {
+  const [rows] = await pool.query(`SELECT * FROM users WHERE user_id = ?`, [user_id]);
+  return rows[0];
+};
+
+const getUserByUsername = async (username) => {
+  const [rows] = await pool.query(`SELECT * FROM users WHERE username = ?`, [username]);
+  return rows[0];
+};
+
+const updateUser = async (user_id, updatedFields) => {
+  const { username, password, role, first_name, last_name, email, address, phone } = updatedFields;
+  await pool.query(
+    `UPDATE users SET username = ?, password = ?, role = ?, first_name = ?, last_name = ?, email = ?, address = ?, phone = ? 
+     WHERE user_id = ?`,
+    [username, password, role, first_name, last_name, email, address, phone, user_id]
   );
-  return rows[0]; // Returns the user object if found
 };
 
-// Find a user by email
-// const findUserByEmail = async (email) => {
-//   const [rows] = await pool.query(
-//     `SELECT * FROM Users WHERE email = ?`,
-//     [email]
-//   );
-//   return rows[0]; // Returns the user object if found
-// };
-
-// // Update user details
-// const updateUser = async (userId, updates) => {
-//   const { password, role, first_name, last_name, email, phone } = updates;
-//   const [result] = await pool.query(
-//     `UPDATE Users
-//      SET password = COALESCE(?, password),
-//          role = COALESCE(?, role),
-//          first_name = COALESCE(?, first_name),
-//          last_name = COALESCE(?, last_name),
-//          email = COALESCE(?, email),
-//          address=COALESCE(?,address),
-//          phone = COALESCE(?, phone)
-//      WHERE user_id = ?`,
-//     [password, role, first_name, last_name, email,address, phone, userId]
-//   );
-//   return result.affectedRows;
-// };
-
-// // Delete a user
-// const deleteUser = async (userId) => {
-//   const [result] = await pool.query(
-//     `DELETE FROM Users WHERE user_id = ?`,
-//     [userId]
-//   );
-//   return result.affectedRows;
-// };
-
-// // Get all users
-// const getAllUsers = async () => {
-//   const [rows] = await pool.query(
-//     `SELECT * FROM Users`
-//   );
-//   return rows;
-// };
-
-module.exports = {
-  createUser,
-  findUserByUsername
-  // findUserByEmail,
-  // updateUser,
-  // deleteUser,
-  // getAllUsers
+const deleteUser = async (user_id) => {
+  await pool.query(`DELETE FROM users WHERE user_id = ?`, [user_id]);
 };
+
+module.exports = { createUser,getAllUser, getUserById, getUserByUsername, updateUser, deleteUser };

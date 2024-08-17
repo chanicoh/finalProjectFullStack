@@ -1,8 +1,12 @@
 const express = require('express');
-const { getRequests } = require('../controllers/serviceRequestController');
+const serviceRequestController  = require('../controllers/serviceRequestController');
 const router = express.Router();
 
-router.get('/requests', getRequests);
+router.get('/service-requests', serviceRequestController.getAllServiceRequests);
+router.post('/service-requests', serviceRequestController.createServiceRequest);
+router.get('/service-requests/:id', serviceRequestController.getServiceRequestById);
+router.put('/service-requests/:id', serviceRequestController.updateServiceRequest);
+router.delete('/service-requests/:id', serviceRequestController.deleteServiceRequest);
 
 // Additional routes...
 

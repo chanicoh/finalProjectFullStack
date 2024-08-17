@@ -1,30 +1,52 @@
-const userModel = require('../models/userModel'); // Adjust path
+const userModel = require('../models/userModel');
 
-// Example of handling a user creation request
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const userId = await userModel.createUser(req.body);
-    res.status(201).json({ message: 'User created', userId });
+    res.status(201).json({ userId });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getAllUser = async (req, res) => {
+  try {
+    const user = await userModel.getAllUser();
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
-// Example of handling a user retrieval request
-const getUser = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
-    const user = await userModel.findUserByUsername(req.params.username);
+    const user = await userModel.getUserById(req.params.id);
     if (user) {
-      res.status(200).json(user);
+      res.json(user);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+  } catch (err) {
+    next(err);
   }
 };
 
-module.exports = {
-  createUser,
-  getUser
+const updateUser = async (req, res, next) => {
+  try {
+    await userModel.updateUser(req.params.id, req.body);
+    res.json({ message: 'User updated successfully' });
+  } catch (err) {
+    next(err);
+  }
 };
+
+const deleteUser = async (req, res, next) => {
+  try {
+    await userModel.deleteUser(req.params.id);
+    res.json({ message: 'User deleted successfully' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { createUser, getAllUser, getUserById, updateUser, deleteUser };

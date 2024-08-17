@@ -1,6 +1,6 @@
 const roomModel = require('../models/roomModel'); // Adjust path as needed
 
-// Example of a controller function
+
 const getAllRooms = async (req, res) => {
   try {
     const rooms = await roomModel.getAllRooms();
