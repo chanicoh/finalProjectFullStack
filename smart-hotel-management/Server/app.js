@@ -1,13 +1,15 @@
 require("dotenv").config(); // ALLOWS ENVIRONMENT VARIABLES TO BE SET ON PROCESS.ENV SHOULD BE AT TOP
 
 const express = require("express");
+const cors = require("cors"); // Import the CORS package
+
 const app = express();
 
 // Middleware
-app.use(express.json()); // parse json bodies in the request object
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json()); // parse JSON bodies in the request object
 
 // Route handlers
-
 const roomRoutes = require('./routes/roomRoutes');
 const userRoutes = require('./routes/userRoutes');
 const billingRoutes = require('./routes/billingRoutes');
@@ -20,15 +22,14 @@ app.use('/api', billingRoutes);
 app.use('/api', reservationRoutes);
 app.use('/api', serviceRequestRoutes);
 
-
-// Global Error Handler. IMPORTANT function params MUST start with err
+// Global Error Handler. IMPORTANT: function params MUST start with err
 app.use((err, req, res, next) => {
   console.log(err.stack);
   console.log(err.name);
   console.log(err.code);
 
   res.status(500).json({
-    message: "Something went rely wrong",
+    message: "Something went really wrong",
   });
 });
 

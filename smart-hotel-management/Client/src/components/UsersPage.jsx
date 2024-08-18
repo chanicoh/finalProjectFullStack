@@ -10,9 +10,9 @@ const UsersPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/users'); // Update the URL if needed
-        console.log(response)
+        const response = await axios.get('/api/users'); // Use relative URL with proxy
         setUsers(response.data);
+        console.log(response.data);
       } catch (err) {
         setError('Failed to fetch users');
       } finally {

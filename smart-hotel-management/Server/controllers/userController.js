@@ -9,14 +9,18 @@ const createUser = async (req, res, next) => {
   }
 };
 
+
 const getAllUser = async (req, res) => {
   try {
-    const user = await userModel.getAllUser();
-    res.status(200).json(user);
+    const users = await userModel.getAllUser();
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+module.exports = { getAllUser };
+
 
 const getUserById = async (req, res, next) => {
   try {
