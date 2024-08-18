@@ -7,7 +7,7 @@ import Register from './components/Auth/Register';
 import Dashboard from './components/Guest/Dashboard';
 import RoomBooking from './components/Guest/RoomBooking';
 import ServiceRequest from './components/Guest/ServiceRequest';
-import Billing from './components/Guest/Billing';
+
 import RoomManagement from './components/Staff/RoomManagement';
 import RequestHandling from './components/Staff/RequestHandling';
 import Housekeeping from './components/Staff/Housekeeping';
