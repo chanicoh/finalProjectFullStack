@@ -1,0 +1,76 @@
+.home-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.top-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+.navigation {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire background */
+  z-index: -1; /* Ensure the image is behind the text */
+}
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Optional: Dark overlay to make text more readable */
+}
+
+.welcome-message {
+  color: white;
+  font-size: 48px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
