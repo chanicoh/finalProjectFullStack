@@ -1,44 +1,37 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Shared/Navbar';
-import Sidebar from './components/Shared/Sidebar';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
-import Dashboard from './components/Guest/Dashboard';
-import RoomBooking from './components/Guest/RoomBooking';
-import ServiceRequest from './components/Guest/ServiceRequest';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+//import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import Reservation from './components/Reservation';
+import Rooms from './components/Rooms';
+import ServiceRequest from './components/ServiceRequest';
+import UsersPage from './components/UsersPage';
+import LoginPage from './pages/LoginPage';
+import AdminDashboard from './pages/AdminDashboard';
+import GuestDashboard from './pages/GuestDashboard';
+import StaffDashboard from './pages/StaffDashboard';
 
-import RoomManagement from './components/Staff/RoomManagement';
-import RequestHandling from './components/Staff/RequestHandling';
-import Housekeeping from './components/Staff/Housekeeping';
-import UserManagement from './components/Admin/UserManagement';
-import RoomInventory from './components/Admin/RoomInventory';
-import Reports from './components/Admin/Reports';
+//import NotFound from './pages/NotFound';
 
-const App = () => {
+function App() {
   return (
     <Router>
-      <Navbar />
-      <div className="main-content">
-        <Sidebar />
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/book-room" component={RoomBooking} />
-          <Route path="/service-requests" component={ServiceRequest} />
-          <Route path="/billing" component={Billing} />
-          <Route path="/manage-rooms" component={RoomManagement} />
-          <Route path="/handle-requests" component={RequestHandling} />
-          <Route path="/housekeeping" component={Housekeeping} />
-          <Route path="/user-management" component={UserManagement} />
-          <Route path="/room-inventory" component={RoomInventory} />
-          <Route path="/reports" component={Reports} />
-          <Route path="/" exact component={Dashboard} />
-        </Switch>
-      </div>
+      <Routes>
+        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/about" element={<AboutPage />} />
+       
+        <Route path="/reservations" element={<Reservation />} />
+        <Route path="/rooms" element={<Rooms />} />
+        <Route path="/service-requests" element={<ServiceRequest />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/guest/dashboard" element={<GuestDashboard />} />
+        <Route path="/staff/dashboard" element={<StaffDashboard />} />
+        {/* Add more routes as needed */}
+      </Routes>
     </Router>
   );
-};
+}
 
 export default App;

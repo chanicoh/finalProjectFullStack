@@ -10,12 +10,16 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // parse JSON bodies in the request object
 
 // Route handlers
+
+const authRoutes = require('./routes/authRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const userRoutes = require('./routes/userRoutes');
 const billingRoutes = require('./routes/billingRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const serviceRequestRoutes = require('./routes/serviceRequestRoutes');
 
+
+app.use('/api', authRoutes);
 app.use('/api', roomRoutes);
 app.use('/api', userRoutes);
 app.use('/api', billingRoutes);
