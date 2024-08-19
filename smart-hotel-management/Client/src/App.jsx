@@ -10,7 +10,6 @@ import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import GuestDashboard from './pages/GuestDashboard';
 import StaffDashboard from './pages/StaffDashboard';
-import HomePage from './pages/HomePage';
 
 //import NotFound from './pages/NotFound';
 
