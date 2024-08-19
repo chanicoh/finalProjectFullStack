@@ -10,7 +10,6 @@ import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import GuestDashboard from './pages/GuestDashboard';
 import StaffDashboard from './pages/StaffDashboard';
-import HomePage from './pages/HomePage';
 
 //import NotFound from './pages/NotFound';
 
@@ -24,7 +23,7 @@ function App() {
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/service-requests" element={<ServiceRequest />} />
         <Route path="/users" element={<UsersPage />} />
-        
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/guest/dashboard" element={<GuestDashboard />} />
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
