@@ -5,8 +5,8 @@ import AboutPage from './pages/AboutPage';
 import Reservation from './components/Reservation';
 import Rooms from './components/Rooms';
 import ServiceRequest from './components/ServiceRequest';
-import UsersPage from './components/UsersPage';
-import LoginPage from './pages/LoginPage';
+import { UsersPage } from './components/UsersPage';
+import  LoginPage  from './components/Auth/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import GuestDashboard from './pages/GuestDashboard';
 import StaffDashboard from './pages/StaffDashboard';
@@ -22,7 +22,7 @@ function App() {
         <Route path="/reservations" element={<Reservation />} />
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/service-requests" element={<ServiceRequest />} />
-        <Route path="/users" element={<UsersPage />} />
+        <Route path="/users" element={<UsersPage />} /> 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/guest/dashboard" element={<GuestDashboard />} />

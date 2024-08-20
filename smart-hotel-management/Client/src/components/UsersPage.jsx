@@ -1,8 +1,7 @@
-// src/pages/UsersPage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const UsersPage = () => {
+export const UsersPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +9,14 @@ const UsersPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('/api/users'); // Use relative URL with proxy
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            // הסר את Authorization אם אינה נדרשת:
+            // 'Authorization': `Bearer ${yourToken}`,
+          },
+        };
+        const response = await axios.get('/api/users', config); 
         setUsers(response.data);
         console.log(response.data);
       } catch (err) {

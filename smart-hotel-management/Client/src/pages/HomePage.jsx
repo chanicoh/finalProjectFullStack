@@ -20,6 +20,7 @@ function HomePage() {
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/about" className="nav-link">About Us</Link>
           <Link to="/contact" className="nav-link">Contact Us</Link>
+          <Link to= "/users" className='users' >Users</Link>
         </div>
         <Link to="/login" className="login-button">Login</Link>
       </div>

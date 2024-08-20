@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { login } from '../api/auth';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(username, password);
-      history.push('/dashboard');
+      const response = await axios.post('/api/login', { email, password });
+      console.log(response.data)
+      if (response.data.role) {
+        navigate(`/${response.data.role}/dashboard`);
+      }
     } catch (error) {
-      alert('Login failed');
+      alert('Login failed. Please check your credentials and try again.');
     }
   };
 
@@ -22,10 +25,10 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
@@ -41,4 +44,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
