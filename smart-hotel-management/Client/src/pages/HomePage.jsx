@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../Css/HomePage.css';
-//import { fetchRooms } from '../services/roomService'; // Service to fetch rooms from db
 import '../assets/hotelHOME.png';
 
 function HomePage() {
@@ -40,27 +39,54 @@ function HomePage() {
     };
   }, []);
 
-  /*useEffect(() => {
-    const fetchData = async () => {
-      const roomsData = await fetchRooms();
-      setRooms(roomsData);
-    };
-    fetchData();
-  }, []);*/
-
-  const handleSearch = () => {
-    console.log('Search:', startDate, 'to', endDate, 'Rooms:', roomCount, 'Guests:', guestCount);
-    // Add your search logic here
+  const handleNavigation = (section) => {
+    switch (section) {
+      case 'home':
+        homeRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'rooms':
+        roomsRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'contact':
+        contactRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'about':
+        aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+        break;
+      default:
+        break;
+    }
   };
 
   return (
     <div className="home-page">
       <div className="top-bar">
         <div className="navigation">
-          <Link to="/" className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}>Home</Link>
-          <a href="#rooms" className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}>Rooms</a>
-          <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}>Contact Us</a>
-          <a href="#about" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}>About Us</a>
+          <Link
+            to="/"
+            className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
+            onClick={() => handleNavigation('home')}
+          >
+            Home
+          </Link>
+          <button
+            className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}
+            onClick={() => handleNavigation('rooms')}
+          >
+            Rooms
+          </button>
+          <button
+            className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
+            onClick={() => handleNavigation('contact')}
+          >
+            Contact Us
+          </button>
+          <button
+            className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
+            onClick={() => handleNavigation('about')}
+          >
+            About Us
+          </button>
           <Link to="/users" className="UsersPage">Users</Link>
         </div>
         <Link to="/login" className="login-button">Login</Link>
@@ -70,9 +96,9 @@ function HomePage() {
         <div className="overlay">
           <h1 className="welcome-message">Welcome to Our Hotel</h1>
         </div>
-        <img 
+        <img
           src={require('../assets/hotelHOME.png')}
-          alt="Hotel Home" 
+          alt="Hotel Home"
           className="home-image"
         />
       </div>
@@ -90,6 +116,32 @@ function HomePage() {
           ))}
         </div>
       </div>
+      <div class="hotel-info-container">
+      <div class="hotel-info">
+        <h2>Hotel Information</h2>
+        <p>Address: Calea Victoriei 166, 010096 Bucharest</p>
+        <a href="#">View Map</a>
+        <p>Phone: +40 21 2125558</p>
+        <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+        <button>Check Availability</button>
+    </div>
+    <div class="services">
+        <h2>Services</h2>
+        <ul>
+            <li>Free WiFi</li>
+            <li>Breakfast Included</li>
+            <li>Bar</li>
+            <li>Restaurant</li>
+            <li>Fitness Center</li>
+            <li>Non-Smoking Hotel</li>
+            <li>Meeting Rooms</li>
+            <li>Air Conditioning</li>
+            <li>24-Hour Reception</li>
+        </ul>
+    </div>
+    
+</div>
+
 
       <div className="contact-section" ref={contactRef}>
         <h2 className="section-title">Contact Us</h2>

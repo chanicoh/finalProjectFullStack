@@ -30,12 +30,18 @@
 .nav-link {
   color: white;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease;
+  padding: 10px 15px;
+  background: none; /* Removes the white background */
+  border: none; /* Removes any border */
+  transition: color 0.3s ease; /* Adds a smooth transition for color changes */
 }
 
 .nav-link.active {
-  color: yellow; /* Highlight color */
+  color: rgb(215, 186, 107); /* Active link color */
+}
+
+.nav-link:hover {
+  color: #ff6347; /* Optional: Change color on hover */
 }
 
 .login-button {
@@ -85,6 +91,7 @@
 }
 
 .rooms-section {
+  
   background-color: #f5f5f5;
   padding: 100px 20px;
 }
@@ -113,4 +120,83 @@
   font-size: 36px;
   margin-bottom: 20px;
   text-align: center;
+}
+
+
+.hotel-info-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 20px;
+  align-items: flex-start; 
+  height: 510px;
+}
+
+.services, .hotel-info {
+  flex: 1;
+  padding: 0 20px;
+  margin-right: 300px;
+}
+
+.services {
+  border-left: 1px solid #ddd;
+}
+
+.services h2, .hotel-info h2 {
+  color:  rgb(215, 186, 107); ; /* The red color from your example */
+  margin-bottom: 10px;
+  font-size: 2.4em;
+ 
+ 
+}
+
+.services ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.4em;
+}
+
+.services li {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.services li::before {
+  content: "✔"; /* You can replace this with an icon if you prefer */
+  margin-right: 10px;
+  color: #007bff;
+}
+
+.hotel-info p, .hotel-info a {
+  margin: 5px 0;
+  font-size: 1.4em;
+}
+.hotel-info{
+  
+  padding-left: 20px;
+}
+.hotel-info a {
+  color: #007bff;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.4em;
+  text-align: right;
+  padding-left: 20px;
+}
+
+.hotel-info button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: rgb(215, 186, 107); ;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hotel-info button:hover {
+  background-color: #c81919;
 }
