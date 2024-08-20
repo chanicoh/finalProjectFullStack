@@ -6,9 +6,6 @@ import '../assets/hotelHOME.png';
 
 function HomePage() {
   const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [roomCount, setRoomCount] = useState(1);
-  const [guestCount, setGuestCount] = useState(2);
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
 
@@ -101,7 +98,6 @@ function HomePage() {
           >
             Contact Us
           </button>
-          <Link to="/users" className="UsersPage">Users</Link>
         </div>
         <Link to="/login" className="login-button">Login</Link>
       </div>
@@ -118,21 +114,42 @@ function HomePage() {
       </div>
 
       <div className="rooms-section" ref={roomsRef}>
-        <h2 className="section-title">Available Rooms</h2>
-        <div className="rooms-grid">
-          {rooms.map((room) => (
-            <div key={room.room_id} className="room-card">
-              <h3>Room {room.room_number}</h3>
-              <p>{room.description}</p>
-              <p>Type: {room.room_type}</p>
-              {room.photos && (
-                <img src={room.photos} alt={`Room ${room.room_number}`} className="room-photo" />
-              )}
-            </div>
-          ))}
-        </div>
+        <h2>ROOMS</h2>
+        <p>The Leonardo Bucharest City Hotel offers 156 comfortable rooms and cozy 
+          suites, including well-designed double rooms and pampering family rooms. 
+          All rooms include free internet, speakers and the hotel's music channel, 
+          air conditioning, safe, LCD TV with cables and more. Rooms without balconies 
+          and some overlooking an urban view and some overlooking the sea. to enhance 
+          the experience. Book one of the luxury suites overlooking the sea and a 
+          variety of unique treats. There are also accessible rooms adapted for guests
+           with disabilities.</p>
       </div>
 
+      
+
+      <div className="about-section" ref={aboutRef}>
+        <h2 className="section-title"></h2>
+        <p>About the hotel
+           Located in a perfect location in the heart of the Romanian 
+           capital, the Leonardo Hotel Bucharest City Center will pamper 
+           you with a wonderful and extremely comfortable hospitality experience, 
+           which will allow you to experience the best that this beautiful and historic 
+           city has to offer.
+Here you will enjoy optimal proximity to all the hot attractions of the city, 
+which are just a few minutes' walk away, as well as pleasant hiking trails, plenty 
+of excellent local restaurants and charming cafes.
+The pampering continues at the height of comfort even in the hotel 
+itself with modern and pleasant guest rooms overlooking the unique view of 
+the city, which is seen at its best during the magical night hours; A warm and 
+relaxed homely atmosphere is present in all the designed interiors; A staff that 
+is at your disposal around the clock and will provide an answer to every need and a 
+friendly concierge service that will be happy to share with you secret tips about the 
+best places to eat in Bucharest, the prestigious shows, the leading galleries and the 
+most exciting attractions. Add to all this a rich breakfast to start the day full of 
+energy, a selection of refreshing drinks served in the hotel restaurant alongside a 
+variety of excellent international dishes, and you will have a vacation in Bucharest 
+full of unforgettable experiences, which can also be experienced by experiential pedaling on the bicycles offered for rent at the hotel's reception desk.</p>
+      </div>
       <div className="hotel-info-container">
         <div className="hotel-info">
           <h2>Hotel Information</h2>
@@ -157,30 +174,6 @@ function HomePage() {
             <li>24-Hour Reception</li>
           </ul>
         </div>
-      </div>
-
-      <div className="about-section" ref={aboutRef}>
-        <h2 className="section-title"></h2>
-        <p>About the hotel
-           Located in a perfect location in the heart of the Romanian 
-           capital, the Leonardo Hotel Bucharest City Center will pamper 
-           you with a wonderful and extremely comfortable hospitality experience, 
-           which will allow you to experience the best that this beautiful and historic 
-           city has to offer.
-Here you will enjoy optimal proximity to all the hot attractions of the city, 
-which are just a few minutes' walk away, as well as pleasant hiking trails, plenty 
-of excellent local restaurants and charming cafes.
-The pampering continues at the height of comfort even in the hotel 
-itself with modern and pleasant guest rooms overlooking the unique view of 
-the city, which is seen at its best during the magical night hours; A warm and 
-relaxed homely atmosphere is present in all the designed interiors; A staff that 
-is at your disposal around the clock and will provide an answer to every need and a 
-friendly concierge service that will be happy to share with you secret tips about the 
-best places to eat in Bucharest, the prestigious shows, the leading galleries and the 
-most exciting attractions. Add to all this a rich breakfast to start the day full of 
-energy, a selection of refreshing drinks served in the hotel restaurant alongside a 
-variety of excellent international dishes, and you will have a vacation in Bucharest 
-full of unforgettable experiences, which can also be experienced by experiential pedaling on the bicycles offered for rent at the hotel's reception desk.</p>
       </div>
       
       <div className="contact-section" ref={contactRef}>
