@@ -61,6 +61,7 @@ function HomePage() {
           <a href="#rooms" className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}>Rooms</a>
           <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}>Contact Us</a>
           <a href="#about" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}>About Us</a>
+          <Link to="/users" className="UsersPage">Users</Link>
         </div>
         <Link to="/login" className="login-button">Login</Link>
       </div>
