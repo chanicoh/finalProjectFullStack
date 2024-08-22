@@ -28,6 +28,7 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/guest/dashboard" element={<GuestDashboard />} />
         <Route path="/staff/dashboard" element={<StaffDashboard />} />
+        <Route path="/reservation" element={<Reservation />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

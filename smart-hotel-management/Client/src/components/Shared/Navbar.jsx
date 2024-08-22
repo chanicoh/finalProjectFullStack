@@ -11,6 +11,7 @@ const Navbar = () => {
       <Link to="/billing">Billing</Link>
       <Link to="/login">Login</Link>
       <Link to="/register">Register</Link>
+      <Link to="/reservation">Reservation</Link>
     </nav>
   );
 };

@@ -43,6 +43,51 @@
 .nav-link:hover {
   color: #ff6347; /* Optional: Change color on hover */
 }
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.login-button {
+  margin-right: 10px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  margin-right: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: white;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
 
 .login-button {
   margin-right: 40px;
@@ -157,7 +202,6 @@
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 300px;
 }
 
 .room-button:hover {

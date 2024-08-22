@@ -8,6 +8,7 @@ function HomePage() {
   const [startDate, setStartDate] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const location = useLocation();
   const message = location.state?.message;
@@ -81,6 +82,10 @@ function HomePage() {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  
+  };
   
 
   return (
@@ -113,7 +118,23 @@ function HomePage() {
             Contact Us
           </button>
         </div>
+        <div className="user-actions">
         <Link to="/login" className="login-button">Login</Link>
+          <div className="dropdown">
+            <button className="dropdown-button" onClick={toggleDropdown}>
+              &#9776; {/* Hamburger icon */}
+            </button>
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                <Link to="/profile" className="dropdown-item">Profile</Link>
+                <Link to="/orders" className="dropdown-item">My Orders</Link>
+                <Link to="/accounts" className="dropdown-item">Accounts</Link>
+                <Link to="/notifications" className="dropdown-item">Notifications</Link>
+                <Link to="/requests" className="dropdown-item">Requests</Link>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="content" ref={homeRef}>
@@ -148,22 +169,21 @@ function HomePage() {
           src={require('../assets/rooms/StandardRoom/1.png')}
           className="room-image"
         />
-      <button to="/Reseration" className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+      <Link to="/reservation" className="room-button">Book Now</Link>
     </div>
     
     {/* Deluxe Room */}
     <div className="room-card">
       <h3>Deluxe Room</h3>
       <p>
-        The Deluxe Room offers more space and luxury with a king-sized bed, en-suite bathroom with a bathtub, free Wi-Fi, flat-screen TV, and a seating area.
+        The Deluxe Room offers more space and luxury It includes a with a king-sized bed, en-suite bathroom with a bathtub, free Wi-Fi, flat-screen TV, and a seating area.
       </p>
       <img
           src={require('../assets/rooms/DeluxeRoom/1.png')}
           className="room-image"
         />
-      <button to="/Reseration" className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+     <Link to="/reservation" className="room-button">Book Now</Link>
+      
     </div>
     
     {/* Suite Room */}
@@ -176,8 +196,8 @@ function HomePage() {
           src={require('../assets/rooms/PresidentialSuite/1.png')}
           className="room-image"
         />
-      <button to="/Reseration"  className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+     <Link to="/reservation" className="room-button">Book Now</Link>
+      
     </div>
     
     {/* Family Room */}
@@ -190,8 +210,8 @@ function HomePage() {
           src={require('../assets/rooms/Family Suite/1.png')}
           className="room-image"
         />
-      <button to="/Reseration" className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+      <Link to="/reservation" className="room-button">Book Now</Link>
+      
     </div>
 
     </div>
