@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../Css/HomePage.css';
 import '../assets/hotelHOME.png';
@@ -8,6 +8,11 @@ function HomePage() {
   const [startDate, setStartDate] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
+
+  const location = useLocation();
+  const message = location.state?.message;
+  const user = location.state?.user; 
+  console.log(user,message) // Access the passed user info
 
   const homeRef = useRef(null);
   const roomsRef = useRef(null);
@@ -26,6 +31,13 @@ function HomePage() {
 
     fetchRooms();
   }, []);
+
+  // Add the useEffect here to log user information if the user is logged in
+  useEffect(() => {
+    if (user) {
+      console.log('User logged in:', user);  // Log the user information
+    }
+  }, [user]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -184,8 +196,6 @@ function HomePage() {
 
     </div>
       </div>
-
-      
 
       <div className="about-section" ref={aboutRef}>
         <h2 className="section-title"></h2>

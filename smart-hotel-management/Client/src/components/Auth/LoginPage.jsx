@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../../Css/auth.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -11,13 +12,25 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/login', { email, password });
-      console.log(response.data)
-      if (response.data.role) {
-        navigate(`/${response.data.role}/dashboard`);
+      console.log('Response:', response);
+
+      if (response.data && response.data.user) {
+        const user = response.data.user;
+        console.log(user);
+
+        if (user.role === 'guest') {
+          navigate('/', { state: { user } }); // Navigate to the main page for guest
+        } else {
+          navigate(`/${user.role}/dashboard`, { state: { user } }); // Navigate to role-specific dashboard
+        }
       }
     } catch (error) {
       alert('Login failed. Please check your credentials and try again.');
     }
+  };
+
+  const handleRegisterRedirect = () => {
+    navigate('/register');
   };
 
   return (
@@ -40,6 +53,10 @@ const LoginPage = () => {
         />
         <button type="submit">Login</button>
       </form>
+      <div className="register-redirect">
+        <p>Don't have an account?</p>
+        <button onClick={handleRegisterRedirect}>Register</button>
+      </div>
     </div>
   );
 };
