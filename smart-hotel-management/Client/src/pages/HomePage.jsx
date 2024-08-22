@@ -81,6 +81,8 @@ function HomePage() {
     }
   };
 
+  
+
   return (
     <div className="home-page">
       <div className="top-bar">
@@ -135,6 +137,64 @@ function HomePage() {
           the experience. Book one of the luxury suites overlooking the sea and a 
           variety of unique treats. There are also accessible rooms adapted for guests
            with disabilities.</p>
+           <div className="rooms-grid">
+    {/* Standard Room */}
+    <div className="room-card">
+      <h3>Standard Room</h3>
+      <p>
+        The Standard Room is perfect for guests seeking a comfortable stay at an affordable price. It includes a double bed, private bathroom, free Wi-Fi, and a flat-screen TV.
+      </p>
+      <img
+          src={require('../assets/rooms/StandardRoom/1.png')}
+          className="room-image"
+        />
+      <button className="room-button">Book Now</button>
+      <a href="#standard-room-details" className="more-info-link">More Information</a>
+    </div>
+    
+    {/* Deluxe Room */}
+    <div className="room-card">
+      <h3>Deluxe Room</h3>
+      <p>
+        The Deluxe Room offers more space and luxury with a king-sized bed, en-suite bathroom with a bathtub, free Wi-Fi, flat-screen TV, and a seating area.
+      </p>
+      <img
+          src={require('../assets/rooms/DeluxeRoom/1.png')}
+          className="room-image"
+        />
+      <button className="room-button">Book Now</button>
+      <a href="#standard-room-details" className="more-info-link">More Information</a>
+    </div>
+    
+    {/* Suite Room */}
+    <div className="room-card">
+      <h3>Suite Room</h3>
+      <p>
+        The Suite Room is designed for guests who need extra space and comfort. It features a separate living area, a king-sized bed, a spacious bathroom, free Wi-Fi, and a flat-screen TV.
+      </p>
+      <img
+          src={require('../assets/rooms/PresidentialSuite/1.png')}
+          className="room-image"
+        />
+      <button className="room-button">Book Now</button>
+      <a href="#standard-room-details" className="more-info-link">More Information</a>
+    </div>
+    
+    {/* Family Room */}
+    <div className="room-card">
+      <h3>Family Room</h3>
+      <p>
+        The Family Room is ideal for families or groups. It includes two double beds, a large bathroom, free Wi-Fi, a flat-screen TV, and space for an extra bed if needed.
+      </p>
+      <img
+          src={require('../assets/rooms/Family Suite/1.png')}
+          className="room-image"
+        />
+      <button className="room-button">Book Now</button>
+      <a href="#standard-room-details" className="more-info-link">More Information</a>
+    </div>
+
+    </div>
       </div>
 
       <div className="about-section" ref={aboutRef}>
