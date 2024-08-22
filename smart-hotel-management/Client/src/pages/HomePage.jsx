@@ -136,7 +136,7 @@ function HomePage() {
           src={require('../assets/rooms/StandardRoom/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
+      <button to="/Reseration" className="room-button">Book Now</button>
       <a href="#standard-room-details" className="more-info-link">More Information</a>
     </div>
     
@@ -150,7 +150,7 @@ function HomePage() {
           src={require('../assets/rooms/DeluxeRoom/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
+      <button to="/Reseration" className="room-button">Book Now</button>
       <a href="#standard-room-details" className="more-info-link">More Information</a>
     </div>
     
@@ -164,7 +164,7 @@ function HomePage() {
           src={require('../assets/rooms/PresidentialSuite/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
+      <button to="/Reseration"  className="room-button">Book Now</button>
       <a href="#standard-room-details" className="more-info-link">More Information</a>
     </div>
     
@@ -178,7 +178,7 @@ function HomePage() {
           src={require('../assets/rooms/Family Suite/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
+      <button to="/Reseration" className="room-button">Book Now</button>
       <a href="#standard-room-details" className="more-info-link">More Information</a>
     </div>
 
