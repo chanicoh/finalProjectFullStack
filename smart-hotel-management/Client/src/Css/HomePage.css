@@ -215,16 +215,22 @@
 }
 
 
-.contact-section, .about-section {
+.contact-section {
   background-color: #eaeaea;
   padding: 100px 20px;
-  height: 450px;
+  height: 400px;
   margin-top: 20px;
+}
+.about-section{
+  padding: 100px 20px;
+  height: 250px;
+  margin-top: 20px;
+
 }
 
 .section-title {
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 

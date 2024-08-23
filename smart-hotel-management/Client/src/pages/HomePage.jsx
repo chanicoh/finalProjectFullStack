@@ -90,6 +90,10 @@ function HomePage() {
     navigate('/'); // Redirect to login page
   };
 
+  const handleBookNow = (roomType) => {
+    navigate('/reservation', { state: { roomType } });
+  };
+
   return (
     <div className="home-page">
     <div className="top-bar">
@@ -181,7 +185,12 @@ function HomePage() {
           src={require('../assets/rooms/StandardRoom/1.png')}
           className="room-image"
         />
-      <Link to="/reservation" className="room-button">Book Now</Link>
+      <button
+              className="room-button"
+              onClick={() => handleBookNow('Standard Room')}
+            >
+              Book Now
+            </button>
     </div>
     
     {/* Deluxe Room */}
@@ -194,7 +203,12 @@ function HomePage() {
           src={require('../assets/rooms/DeluxeRoom/1.png')}
           className="room-image"
         />
-     <Link to="/reservation" className="room-button">Book Now</Link>
+       <button
+              className="room-button"
+              onClick={() => handleBookNow('Deluxe Room')}
+            >
+              Book Now
+            </button>
       
     </div>
     
@@ -208,7 +222,12 @@ function HomePage() {
           src={require('../assets/rooms/PresidentialSuite/1.png')}
           className="room-image"
         />
-     <Link to="/reservation" className="room-button">Book Now</Link>
+     <button
+              className="room-button"
+              onClick={() => handleBookNow('Suite Room')}
+            >
+              Book Now
+            </button>
       
     </div>
     
@@ -222,8 +241,12 @@ function HomePage() {
           src={require('../assets/rooms/Family Suite/1.png')}
           className="room-image"
         />
-      <Link to="/reservation" className="room-button">Book Now</Link>
-      
+       <button
+              className="room-button"
+              onClick={() => handleBookNow('Family Room')}
+            >
+              Book Now
+            </button>
     </div>
 
     </div>

@@ -23,7 +23,7 @@ const createRoom = async (room) => {
 const updateRoom = async (room_id, updatedFields) => {
   const {  room_number, room_type, status, price_per_night, description } = updatedFields;
   await pool.query(
-    `UPDATE rooms SET room_number = ?, room_type = ?, status = ?, price_per_night = ?, description = ?, photos = ? 
+    `UPDATE rooms SET room_number = ?, room_type = ?, status = ?, price_per_night = ?, description = ? 
      WHERE room_id = ?`,
     [ room_number, room_type, status, price_per_night, description ]
   );
