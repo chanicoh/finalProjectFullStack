@@ -48,10 +48,6 @@
   align-items: center;
 }
 
-.login-button {
-  margin-right: 10px;
-}
-
 .dropdown {
   position: relative;
 }
@@ -90,10 +86,13 @@
 
 
 .login-button {
+  cursor: pointer;
+  border: 1px solid #ccc;
   margin-right: 40px;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .content, .about-section {
@@ -306,4 +305,53 @@
 
 .hotel-info button:hover {
   background-color: #c81919;
+}
+
+/* Media queries for iPhone */
+@media only screen and (max-width: 768px) {
+  .welcome-message {
+    font-size: 24px;
+  }
+
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-card {
+    height: auto;
+  }
+
+  .room-image {
+    height: 150px;
+  }
+
+  .top-bar {
+    padding: 10px;
+  }
+
+  .nav-link {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .hotel-info-container {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .services,
+  .hotel-info {
+    margin: 10px 0;
+  }
+
+  .services h2,
+  .hotel-info h2 {
+    font-size: 1.5em;
+  }
+
+  .services ul,
+  .hotel-info p,
+  .hotel-info a {
+    font-size: 1em;
+  }
 }

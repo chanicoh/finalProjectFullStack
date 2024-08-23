@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Css/HomePage.css';
 import '../assets/hotelHOME.png';
 
 function HomePage() {
-  const [startDate, setStartDate] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate(); // Add navigate to handle navigation
   const message = location.state?.message;
-  const user = location.state?.user; 
-  console.log(user,message) // Access the passed user info
+  const [user, setUser] = useState(location.state?.user || null); // Manage user state
+  console.log(user, message);
 
   const homeRef = useRef(null);
   const roomsRef = useRef(null);
@@ -33,10 +33,9 @@ function HomePage() {
     fetchRooms();
   }, []);
 
-  // Add the useEffect here to log user information if the user is logged in
   useEffect(() => {
     if (user) {
-      console.log('User logged in:', user);  // Log the user information
+      console.log('User logged in:', user);
     }
   }, [user]);
 
@@ -84,58 +83,71 @@ function HomePage() {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  
   };
-  
+
+  const handleLogout = () => {
+    setUser(null); // Clear the user state
+    navigate('/'); // Redirect to login page
+  };
 
   return (
     <div className="home-page">
-      <div className="top-bar">
-        <div className="navigation">
-          <Link
-            to="/"
-            className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
-            onClick={() => handleNavigation('home')}
-          >
-            Home
-          </Link>
-          <button
-            className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}
-            onClick={() => handleNavigation('rooms')}
-          >
-            Rooms
-          </button>
-          <button
-            className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
-            onClick={() => handleNavigation('about')}
-          >
-            hotel
-          </button>
-          <button
-            className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
-            onClick={() => handleNavigation('contact')}
-          >
-            Contact Us
-          </button>
-        </div>
-        <div className="user-actions">
-        <Link to="/login" className="login-button">Login</Link>
-          <div className="dropdown">
-            <button className="dropdown-button" onClick={toggleDropdown}>
-              &#9776; {/* Hamburger icon */}
-            </button>
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                <Link to="/profile" className="dropdown-item">Profile</Link>
-                <Link to="/orders" className="dropdown-item">My Orders</Link>
-                <Link to="/accounts" className="dropdown-item">Accounts</Link>
-                <Link to="/notifications" className="dropdown-item">Notifications</Link>
-                <Link to="/requests" className="dropdown-item">Requests</Link>
-              </div>
-            )}
-          </div>
-        </div>
+    <div className="top-bar">
+      <div className="navigation">
+        <Link
+          to="/"
+          className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
+          onClick={() => handleNavigation('home')}
+        >
+          Home
+        </Link>
+        <button
+          className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}
+          onClick={() => handleNavigation('rooms')}
+        >
+          Rooms
+        </button>
+        <button
+          className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
+          onClick={() => handleNavigation('about')}
+        >
+          hotel
+        </button>
+        <button
+          className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
+          onClick={() => handleNavigation('contact')}
+        >
+          Contact Us
+        </button>
       </div>
+      <div className="user-actions">
+        {user ? (
+          <>
+            <button onClick={handleLogout} className="login-button">
+              Logout
+            </button>
+            <div className="dropdown">
+              <button className="dropdown-button" onClick={toggleDropdown}>
+                &#9776; {/* Hamburger icon */}
+              </button>
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                  <Link to="/profile" className="dropdown-item">Profile</Link>
+                  <Link to="/orders" className="dropdown-item">My Orders</Link>
+                  <Link to="/accounts" className="dropdown-item">Accounts</Link>
+                  <Link to="/notifications" className="dropdown-item">Notifications</Link>
+                  <Link to="/requests" className="dropdown-item">Requests</Link>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <Link to="/login" className="login-button">
+            Login
+          </Link>
+        )}
+      </div>
+    </div>
 
       <div className="content" ref={homeRef}>
         <div className="overlay">
