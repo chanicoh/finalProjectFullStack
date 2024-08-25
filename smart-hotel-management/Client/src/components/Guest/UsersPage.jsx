@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import {  useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import './Users.css'
 
 export const UsersPage = () => {
-  const [user, setUser] = useState(null);
+  const location = useLocation();
+  const user = useState(location.state?.user || null); // Manage user state
+  //const [user, setUser] = useState(null);
+  const [room, setRoom] = useState(null);
+  const [request, setRequest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -16,8 +22,9 @@ export const UsersPage = () => {
             'Content-Type': 'application/json',
           },
         };
-        const response = await axios.get('/api/users', config); // Assumes an endpoint that fetches the active user's details
-        setUser(response.data);
+        const response = await axios.get(`/api/users`); // Assumes an endpoint that fetches the active user's details
+        setRoom(response.data);
+        setRequest(response.data);
         console.log(response.data);
       } catch (err) {
         setError('Failed to fetch user details');

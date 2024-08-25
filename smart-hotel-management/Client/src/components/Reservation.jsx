@@ -5,7 +5,7 @@ import '../Css/ReservationPage.css';
 
 function Reservation() {
   const location = useLocation();
-  const { roomType } = location.state || {};
+  const { roomType,user_id } = location.state || {};
 
   const [rooms, setRooms] = useState([]);
   const [checkInDate, setCheckInDate] = useState('');
@@ -17,7 +17,7 @@ function Reservation() {
     if (checkInDate && checkOutDate && roomType) {
       const fetchAvailableRooms = async () => {
         try {
-          const response = await axios.get('/api/rooms/available', {
+          const response = await axios.get('/api/rooms', {
             
           });
           setRooms(response.data);
@@ -34,6 +34,7 @@ function Reservation() {
 
     try {
       const response = await axios.post('/api/reservations', {
+        user_id,
         room_id: selectedRoom,
         check_in_date: checkInDate,
         check_out_date: checkOutDate,
