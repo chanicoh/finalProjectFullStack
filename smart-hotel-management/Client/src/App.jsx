@@ -1,11 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes,Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
 import Reservation from './components/Reservation';
-import Rooms from './components/Rooms';
 import ServiceRequest from './components/ServiceRequest';
-import { UsersPage } from './components/UsersPage';
+import { UsersPage } from './components/Guest/UsersPage';
 import  LoginPage  from './components/Auth/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import GuestDashboard from './pages/GuestDashboard';
@@ -18,9 +16,7 @@ function App() {
     <Router>
       <Routes>
       <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
         <Route path="/reservations" element={<Reservation />} />
-        <Route path="/rooms" element={<Rooms />} />
         <Route path="/service-requests" element={<ServiceRequest />} />
         <Route path="/users" element={<UsersPage />} /> 
         <Route path="/login" element={<LoginPage />} />

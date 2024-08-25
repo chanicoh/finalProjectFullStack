@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../Css/ReservationPage.css';
 
 function Reservation() {
-  const [roomId, setRoomId] = useState('');
+  const location = useLocation();
+  const { roomType } = location.state || {};
+
+  const [rooms, setRooms] = useState([]);
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
-  const [status, setStatus] = useState('booked');
+  const [selectedRoom, setSelectedRoom] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (checkInDate && checkOutDate && roomType) {
+      const fetchAvailableRooms = async () => {
+        try {
+          const response = await axios.get('/api/rooms/available', {
+            
+          });
+          setRooms(response.data);
+        } catch (error) {
+          console.error('Error fetching available rooms', error);
+        }
+      };
+      fetchAvailableRooms();
+    }
+  }, [checkInDate, checkOutDate, roomType]); // Fetch when checkInDate, checkOutDate, or roomType changes
 
   const handleReservation = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post('/api/reservations', {
-        room_id: roomId,
+        room_id: selectedRoom,
         check_in_date: checkInDate,
         check_out_date: checkOutDate,
-        status,
+        status: 'booked',
         total_price: totalPrice,
       });
 
@@ -29,23 +49,8 @@ function Reservation() {
 
   return (
     <div className="reservation-page">
-      <h1>Book Your Room</h1>
+      <h1>Book Your {roomType}</h1>
       <form onSubmit={handleReservation} className="reservation-form">
-        <div className="form-group">
-          <label htmlFor="room">Select Room</label>
-          <select
-            id="room"
-            value={roomId}
-            onChange={(e) => setRoomId(e.target.value)}
-            required
-          >
-            <option value="">Select a room</option>
-            <option value="1">Standard Room</option>
-            <option value="2">Deluxe Room</option>
-            <option value="3">Suite Room</option>
-            <option value="4">Family Room</option>
-          </select>
-        </div>
         <div className="form-group">
           <label htmlFor="checkIn">Check-In Date</label>
           <input
@@ -65,6 +70,22 @@ function Reservation() {
             onChange={(e) => setCheckOutDate(e.target.value)}
             required
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="roomSelect">Select Room</label>
+          <select
+            id="roomSelect"
+            value={selectedRoom}
+            onChange={(e) => setSelectedRoom(e.target.value)}
+            required
+          >
+            <option value="">Select a room</option>
+            {rooms.map((room) => (
+              <option key={room.room_id} value={room.room_id}>
+                Room {room.room_number} - {room.price_per_night} per night
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="totalPrice">Total Price</label>

@@ -39,12 +39,12 @@ const reservationRoutes = require('./routes/reservationRoutes');
 const serviceRequestRoutes = require('./routes/serviceRequestRoutes');
 const authRoutes = require('./routes/authRoutes');
 
-app.use('/api', roomRoutes);
 app.use('/api', userRoutes);
 app.use('/api', billingRoutes);
 app.use('/api', reservationRoutes);
 app.use('/api', serviceRequestRoutes);
 app.use('/api', authRoutes);
+app.use('/api', roomRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

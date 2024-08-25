@@ -6,6 +6,22 @@ const getAllRooms = async () => {
   return rows;
 };
 
+// Fetch rooms by type and availability
+const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
+  const [rows] = await pool.query(
+    `SELECT * FROM rooms 
+     WHERE room_type = ? 
+     AND status = 'available'
+     AND room_id NOT IN (
+       SELECT room_id FROM reservations 
+       WHERE (check_in_date < ? AND check_out_date > ?);
+     )`,
+    [roomType, checkOutDate, checkInDate]
+  );
+  return rows;
+};
+
+
 const findRoomById = async (id) => {
   const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [id]);
   return rows[0];
@@ -35,6 +51,7 @@ const deleteRoom = async (room_id) => {
 
 module.exports = {
   getAllRooms,
+  getAvailableRoomsByType,
   findRoomById,
   createRoom,
   updateRoom,
