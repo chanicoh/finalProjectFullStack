@@ -61,14 +61,23 @@
   }
   
   .dropdown-itemuser {
-    text-decoration: none; /* Removes underline from links */
-    color: #080606; /* Text color of the links */
-    padding: 10px; /* Adjust padding as needed */
-    border-bottom: 1px solid #555; /* Adds a border between items */
+    height: 80px;
+    margin-top: 5px;
+    text-decoration: none; 
+    color: #080606;
+    padding: 10px; 
+    border-bottom: 1px solid #555;
+    transition: color 0.3s ease;
+
   }
   
   .dropdown-itemuser:hover {
     background-color: #555; /* Changes background color on hover */
+  }
+  
+
+  .dropdown-itemuser.active {
+    background-color: #555;
   }
   
   

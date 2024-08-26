@@ -101,10 +101,26 @@ export const UsersPage = () => {
       <h1 className="page-title">User Profile</h1>
       <nav className="dropdownuser">
         <div className="dropdown-menuuser">
-          <Link to="/users?section=profile" className="dropdown-itemuser" onClick={() => handleNavigation('profile')}>Profile</Link>
-          <Link to="/users?section=orders" className="dropdown-itemuser" onClick={() => handleNavigation('orders')}>My Orders</Link>
-          <Link to="/users?section=notifications" className="dropdown-itemuser" onClick={() => handleNavigation('notifications')}>Notifications</Link>
-          <Link to="/users?section=requests" className="dropdown-itemuser" onClick={() => handleNavigation('requests')}>Requests</Link>
+          <Link to="/users?section=profile"  
+          className={`dropdown-itemuser ${activeSection === 'profile' ? 'active' : ''}`}
+           onClick={() => handleNavigation('profile')}>
+            Profile</Link>
+
+          <Link to="/users?section=orders" 
+          className={`dropdown-itemuser ${activeSection === 'orders' ? 'active' : ''}`} 
+          onClick={() => handleNavigation('orders')}>
+            My Orders</Link>
+
+          <Link to="/users?section=notifications" 
+          className={`dropdown-itemuser ${activeSection === 'notifications' ? 'active' : ''}`}
+          onClick={() => handleNavigation('notifications')}>
+            Notifications</Link>
+
+          <Link to="/users?section=requests" 
+          className={`dropdown-itemuser ${activeSection === 'requests' ? 'active' : ''}`} 
+          onClick={() => handleNavigation('requests')}>
+            Requests</Link>
+
         </div>
       </nav>
       <div className="profile-details" ref={profileRef}>
