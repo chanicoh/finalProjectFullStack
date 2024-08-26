@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import {  useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import './Users.css'
@@ -7,12 +7,18 @@ import './Users.css'
 export const UsersPage = () => {
   const location = useLocation();
   const user = useState(location.state?.user || null); // Manage user state
-  //const [user, setUser] = useState(null);
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const [activeSection, setActiveSection] = useState('');
+  //const [user, setUser] = useState(location.state?.user || null); // Manage user state
   const [room, setRoom] = useState(null);
   const [request, setRequest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
+  const profileRef = useRef(null);
+  const ordersRef = useRef(null);
+  const notificationsRef = useRef(null);
+  const requestsRef = useRef(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -36,6 +42,55 @@ export const UsersPage = () => {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const profilHeight = profileRef.current.offsetHeight;
+      const ordersHeight = ordersRef.current.offsetHeight;
+      const notificationsHeight = notificationsRef.current.offsetHeight;
+
+      if (scrollPosition < profilHeight) {
+        setActiveSection('profile-details');
+        navigate('?section=profile', { replace: true });
+      } else if (scrollPosition < profilHeight + ordersHeight) {
+        setActiveSection('my-orders');
+        navigate('?section=orders', { replace: true });
+      } else if (scrollPosition < profilHeight + ordersHeight + notificationsHeight) {
+        setActiveSection('notifications');
+        navigate('?section=notifications', { replace: true });
+      } else {
+        setActiveSection('requests');
+        navigate('?section=requests', { replace: true });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [navigate]);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const section = queryParams.get('section');
+    switch (section) {
+      case 'profile':
+        profileRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'orders':
+        ordersRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'notifications':
+        notificationsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'requests':
+        requestsRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      default:
+        break;
+    }
+  }, [location.search]);
+
   if (loading) return <p className="loading">Loading user data...</p>;
   if (error) return <p className="error">{error}</p>;
 
@@ -44,7 +99,7 @@ export const UsersPage = () => {
   return (
     <div className="users-page">
       <h1 className="page-title">User Profile</h1>
-      <div className="profile-details">
+      <div className="profile-details" ref={profileRef}>
         <h2 className="section-title">Profile Details</h2>
         <p><strong>Name:</strong> {user.first_name} {user.last_name}</p>
         <p><strong>Email:</strong> {user.email}</p>
@@ -54,7 +109,7 @@ export const UsersPage = () => {
 
       <hr className="divider" />
 
-      <div className="my-orders">
+      <div className="my-orders" ref={ordersRef}>
         <h2 className="section-title">My Orders</h2>
         <ul>
           {user.orders && user.orders.length > 0 ? (
@@ -71,7 +126,7 @@ export const UsersPage = () => {
 
       <hr className="divider" />
 
-      <div className="notifications">
+      <div className="notifications" ref={notificationsRef}>
         <h2 className="section-title">Notifications</h2>
         {user.notifications && user.notifications.length > 0 ? (
           <ul>
@@ -86,7 +141,7 @@ export const UsersPage = () => {
 
       <hr className="divider" />
 
-      <div className="requests">
+      <div className="requests" ref={requestsRef}>
         <h2 className="section-title">Requests</h2>
         <ul>
           {user.requests && user.requests.length > 0 ? (

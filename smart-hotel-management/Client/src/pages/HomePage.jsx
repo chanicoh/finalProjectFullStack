@@ -136,12 +136,11 @@ function HomePage() {
               </button>
               {isDropdownOpen && (
                 <div className="dropdown-menu">
-                  <Link to="/users" className="dropdown-item">Profile</Link>
-                  <Link to="/users" className="dropdown-item">My Orders</Link>
-                  <Link to="/users" className="dropdown-item">Accounts</Link>
-                  <Link to="/users" className="dropdown-item">Notifications</Link>
-                  <Link to="/users" className="dropdown-item">Requests</Link>
-                </div>
+                <Link to="/users?section=profile" className="dropdown-item">Profile</Link>
+                <Link to="/users?section=orders" className="dropdown-item">My Orders</Link>
+                <Link to="/users?section=notifications" className="dropdown-item">Notifications</Link>
+                <Link to="/users?section=requests" className="dropdown-item">Requests</Link>
+              </div>
               )}
             </div>
           </>
