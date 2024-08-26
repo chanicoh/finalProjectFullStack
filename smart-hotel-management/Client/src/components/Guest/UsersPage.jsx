@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 
-import './Users.css'
+import './Users.css';
 
 export const UsersPage = () => {
   const location = useLocation();
@@ -45,9 +45,9 @@ export const UsersPage = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const profilHeight = profileRef.current.offsetHeight;
-      const ordersHeight = ordersRef.current.offsetHeight;
-      const notificationsHeight = notificationsRef.current.offsetHeight;
+      const profilHeight = profileRef.current ? profileRef.current.offsetHeight : 0;
+      const ordersHeight = ordersRef.current ? ordersRef.current.offsetHeight : 0;
+      const notificationsHeight = notificationsRef.current ? notificationsRef.current.offsetHeight : 0;
 
       if (scrollPosition < profilHeight) {
         setActiveSection('profile-details');
@@ -68,11 +68,11 @@ export const UsersPage = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [navigate]);
+  }, []);
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const section = queryParams.get('section');
+
+
+  const handleNavigation=(section) => {
     switch (section) {
       case 'profile':
         profileRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -89,7 +89,7 @@ export const UsersPage = () => {
       default:
         break;
     }
-  }, [location.search]);
+  } ;
 
   if (loading) return <p className="loading">Loading user data...</p>;
   if (error) return <p className="error">{error}</p>;
@@ -99,6 +99,14 @@ export const UsersPage = () => {
   return (
     <div className="users-page">
       <h1 className="page-title">User Profile</h1>
+      <nav className="dropdownuser">
+        <div className="dropdown-menuuser">
+          <Link to="/users?section=profile" className="dropdown-itemuser" onClick={() => handleNavigation('profile')}>Profile</Link>
+          <Link to="/users?section=orders" className="dropdown-itemuser" onClick={() => handleNavigation('orders')}>My Orders</Link>
+          <Link to="/users?section=notifications" className="dropdown-itemuser" onClick={() => handleNavigation('notifications')}>Notifications</Link>
+          <Link to="/users?section=requests" className="dropdown-itemuser" onClick={() => handleNavigation('requests')}>Requests</Link>
+        </div>
+      </nav>
       <div className="profile-details" ref={profileRef}>
         <h2 className="section-title">Profile Details</h2>
         <p><strong>Name:</strong> {user.first_name} {user.last_name}</p>

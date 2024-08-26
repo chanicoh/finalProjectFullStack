@@ -41,4 +41,34 @@
     font-size: 1.2rem;
     color: red;
   }
+
+  
+  .dropdown-menuuser {
+    height: 630px;
+    display: flex; 
+    flex-direction: column; 
+    padding: 0;
+    margin: 0; 
+    list-style: none;
+    position: fixed; 
+    top: 0px; 
+    right: 0px; 
+    width: 200px; 
+    background-color:rgba(255, 255, 255, 0); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    z-index: 1000; 
+   
+  }
+  
+  .dropdown-itemuser {
+    text-decoration: none; /* Removes underline from links */
+    color: #080606; /* Text color of the links */
+    padding: 10px; /* Adjust padding as needed */
+    border-bottom: 1px solid #555; /* Adds a border between items */
+  }
+  
+  .dropdown-itemuser:hover {
+    background-color: #555; /* Changes background color on hover */
+  }
+  
   
