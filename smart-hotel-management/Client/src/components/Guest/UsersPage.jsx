@@ -82,6 +82,7 @@ export const UsersPage = () => {
 
 
   const handleNavigation=(section) => {
+    setActiveSection(section);
     switch (section) {
       case 'profile':
         profileRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -110,25 +111,25 @@ export const UsersPage = () => {
       <h1 className="page-title">User Profile</h1>
       <nav className="dropdownuser">
         <div className="dropdown-menuuser">
-          <Link to="/users?section=profile"  
+          <button 
           className={`dropdown-itemuser ${activeSection === 'profile' ? 'active' : ''}`}
            onClick={() => handleNavigation('profile')}>
-            Profile</Link>
+            Profile</button>
 
-          <Link to="/users?section=orders" 
+          <button 
           className={`dropdown-itemuser ${activeSection === 'orders' ? 'active' : ''}`} 
           onClick={() => handleNavigation('orders')}>
-            My Orders</Link>
+            My Orders</button>
 
-          <Link to="/users?section=notifications" 
+          <button  
           className={`dropdown-itemuser ${activeSection === 'notifications' ? 'active' : ''}`}
           onClick={() => handleNavigation('notifications')}>
-            Notifications</Link>
+            Notifications</button>
 
-          <Link to="/users?section=requests" 
+          <button 
           className={`dropdown-itemuser ${activeSection === 'requests' ? 'active' : ''}`} 
           onClick={() => handleNavigation('requests')}>
-            Requests</Link>
+            Requests</button>
 
         </div>
       </nav>

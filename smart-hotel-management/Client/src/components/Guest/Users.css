@@ -61,13 +61,15 @@
   }
   
   .dropdown-itemuser {
-    height: 80px;
+    border: none;
+    height: 100px;
     margin-top: 5px;
     text-decoration: none; 
     color: #080606;
     padding: 10px; 
     border-bottom: 1px solid #555;
     transition: color 0.3s ease;
+
 
   }
   

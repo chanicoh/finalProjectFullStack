@@ -91,7 +91,7 @@ function HomePage() {
   };
 
   const handleBookNow = (roomType) => {
-    navigate('/reservation', { state: { roomType } });
+    navigate('/reservation', { state: { roomType,user } },);
   };
 
   const handleNavigate = (section) => {
