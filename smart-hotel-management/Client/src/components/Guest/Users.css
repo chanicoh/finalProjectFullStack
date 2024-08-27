@@ -72,12 +72,12 @@
   }
   
   .dropdown-itemuser:hover {
-    background-color: #555; /* Changes background color on hover */
+    background-color: #918e8e53; /* Changes background color on hover */
   }
   
 
   .dropdown-itemuser.active {
-    background-color: #555;
+    background-color: #918e8e53;
   }
   
   

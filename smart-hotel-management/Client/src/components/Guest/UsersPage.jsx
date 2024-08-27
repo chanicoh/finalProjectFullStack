@@ -5,15 +5,24 @@ import axios from 'axios';
 import './Users.css';
 
 export const UsersPage = () => {
-  const location = useLocation();
-  const user = useState(location.state?.user || null); // Manage user state
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
-  const [activeSection, setActiveSection] = useState('');
-  //const [user, setUser] = useState(location.state?.user || null); // Manage user state
+
+
   const [room, setRoom] = useState(null);
   const [request, setRequest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeSection, setActiveSection] = useState('');
+
+  const location = useLocation();
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
+  const message = location.state?.message;
+  
+  const [user, setUser] = useState(location.state?.user || null); // Destructure to get the user state value
+
+  console.log("Location state:", location.state);
+
+  
+  
 
   const profileRef = useRef(null);
   const ordersRef = useRef(null);

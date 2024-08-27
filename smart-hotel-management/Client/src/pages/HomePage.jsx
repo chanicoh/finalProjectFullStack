@@ -94,6 +94,11 @@ function HomePage() {
     navigate('/reservation', { state: { roomType } });
   };
 
+  const handleNavigate = (section) => {
+    navigate(`/users?section=${section}`,{ state: { user } });
+  };
+  
+
   return (
     <div className="home-page">
     <div className="top-bar">
@@ -136,10 +141,10 @@ function HomePage() {
               </button>
               {isDropdownOpen && (
                 <div className="dropdown-menu">
-                <Link to="/users?section=profile" className="dropdown-item">Profile</Link>
-                <Link to="/users?section=orders" className="dropdown-item">My Orders</Link>
-                <Link to="/users?section=notifications" className="dropdown-item">Notifications</Link>
-                <Link to="/users?section=requests" className="dropdown-item">Requests</Link>
+                <button onClick={() => handleNavigate('profile')} className="dropdown-item">Profile</button>
+                <button onClick={() => handleNavigate('orders')} className="dropdown-item">My Orders</button>
+                <button onClick={() => handleNavigate('notifications')} className="dropdown-item">Notifications</button>
+                <button onClick={() => handleNavigate('requests')} className="dropdown-item">Requests</button>
               </div>
               )}
             </div>
