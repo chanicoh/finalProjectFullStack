@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate,Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import './Users.css';
@@ -11,12 +11,10 @@ export const UsersPage = () => {
   const [request, setRequest] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState();
 
   const location = useLocation();
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
-  const message = location.state?.message;
-  
   const [user, setUser] = useState(location.state?.user || null); // Destructure to get the user state value
 
   console.log("Location state:", location.state);
@@ -56,15 +54,15 @@ export const UsersPage = () => {
       const scrollPosition = window.scrollY;
       const profilHeight = profileRef.current ? profileRef.current.offsetHeight : 0;
       const ordersHeight = ordersRef.current ? ordersRef.current.offsetHeight : 0;
-      const notificationsHeight = notificationsRef.current ? notificationsRef.current.offsetHeight : 0;
 
-      if (scrollPosition < profilHeight) {
-        setActiveSection('profile-details');
+
+      if (scrollPosition <= profilHeight) {
+        setActiveSection('profile');
         navigate('?section=profile', { replace: true });
       } else if (scrollPosition < profilHeight + ordersHeight) {
-        setActiveSection('my-orders');
+        setActiveSection('orders');
         navigate('?section=orders', { replace: true });
-      } else if (scrollPosition < profilHeight + ordersHeight + notificationsHeight) {
+      } else if (scrollPosition < profilHeight + ordersHeight + notificationsRef.current.offsetHeight) {
         setActiveSection('notifications');
         navigate('?section=notifications', { replace: true });
       } else {
