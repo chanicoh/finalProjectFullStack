@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../Css/HomePage.css';
 import '../assets/hotelHOME.png';
 
 function HomePage() {
-  const [startDate, setStartDate] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate(); // Add navigate to handle navigation
   const message = location.state?.message;
-  const user = location.state?.user; 
-  console.log(user,message) // Access the passed user info
+  const [user, setUser] = useState(location.state?.user || null); // Manage user state
+  console.log(user, message);
 
   const homeRef = useRef(null);
   const roomsRef = useRef(null);
@@ -33,10 +34,9 @@ function HomePage() {
     fetchRooms();
   }, []);
 
-  // Add the useEffect here to log user information if the user is logged in
   useEffect(() => {
     if (user) {
-      console.log('User logged in:', user);  // Log the user information
+      console.log('User logged in:', user);
     }
   }, [user]);
 
@@ -82,10 +82,27 @@ function HomePage() {
     }
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = () => {
+    setUser(null); // Clear the user state
+    navigate('/'); // Redirect to login page
+  };
+
+  const handleBookNow = (roomType) => {
+    navigate('/reservation', { state: { roomType,user } },);
+  };
+
+  const handleNavigate = (section) => {
+    navigate(`/users?section=${section}`,{ state: { user } });
+  };
   
 
   return (
     <div className="home-page">
+<<<<<<< HEAD
       <div className="top-bar">
         <div className="navigation">
           <Link
@@ -116,7 +133,63 @@ function HomePage() {
         </div>
         <Link to="/staff/RoomServiceDashboard" className="roomserver">roomserver</Link>
         <Link to="/login" className="login-button">Login</Link>
+=======
+    <div className="top-bar">
+      <div className="navigation">
+        <Link
+          to="/"
+          className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
+          onClick={() => handleNavigation('home')}
+        >
+          Home
+        </Link>
+        <button
+          className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}
+          onClick={() => handleNavigation('rooms')}
+        >
+          Rooms
+        </button>
+        <button
+          className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
+          onClick={() => handleNavigation('about')}
+        >
+          hotel
+        </button>
+        <button
+          className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
+          onClick={() => handleNavigation('contact')}
+        >
+          Contact Us
+        </button>
+>>>>>>> acf325ecc2ee42435f7032e4d1cd1f018bc1ee81
       </div>
+      <div className="user-actions">
+        {user ? (
+          <>
+            <button onClick={handleLogout} className="login-button">
+              Logout
+            </button>
+            <div className="dropdown">
+              <button className="dropdown-button" onClick={toggleDropdown}>
+                &#9776; {/* Hamburger icon */}
+              </button>
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                <button onClick={() => handleNavigate('profile')} className="dropdown-item">Profile</button>
+                <button onClick={() => handleNavigate('orders')} className="dropdown-item">My Orders</button>
+                <button onClick={() => handleNavigate('notifications')} className="dropdown-item">Notifications</button>
+                <button onClick={() => handleNavigate('requests')} className="dropdown-item">Requests</button>
+              </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <Link to="/login" className="login-button">
+            Login
+          </Link>
+        )}
+      </div>
+    </div>
 
       <div className="content" ref={homeRef}>
         <div className="overlay">
@@ -150,22 +223,31 @@ function HomePage() {
           src={require('../assets/rooms/StandardRoom/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+      <button
+              className="room-button"
+              onClick={() => handleBookNow('Standard Room')}
+            >
+              Book Now
+            </button>
     </div>
     
     {/* Deluxe Room */}
     <div className="room-card">
       <h3>Deluxe Room</h3>
       <p>
-        The Deluxe Room offers more space and luxury with a king-sized bed, en-suite bathroom with a bathtub, free Wi-Fi, flat-screen TV, and a seating area.
+        The Deluxe Room offers more space and luxury It includes a with a king-sized bed, en-suite bathroom with a bathtub, free Wi-Fi, flat-screen TV, and a seating area.
       </p>
       <img
           src={require('../assets/rooms/DeluxeRoom/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+       <button
+              className="room-button"
+              onClick={() => handleBookNow('Deluxe Room')}
+            >
+              Book Now
+            </button>
+      
     </div>
     
     {/* Suite Room */}
@@ -178,8 +260,13 @@ function HomePage() {
           src={require('../assets/rooms/PresidentialSuite/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+     <button
+              className="room-button"
+              onClick={() => handleBookNow('Suite Room')}
+            >
+              Book Now
+            </button>
+      
     </div>
     
     {/* Family Room */}
@@ -192,8 +279,12 @@ function HomePage() {
           src={require('../assets/rooms/Family Suite/1.png')}
           className="room-image"
         />
-      <button className="room-button">Book Now</button>
-      <a href="#standard-room-details" className="more-info-link">More Information</a>
+       <button
+              className="room-button"
+              onClick={() => handleBookNow('Family Room')}
+            >
+              Book Now
+            </button>
     </div>
 
     </div>

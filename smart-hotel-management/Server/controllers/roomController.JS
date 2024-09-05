@@ -9,6 +9,17 @@ const getAllRooms = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+// Fetch available rooms by type
+const getAvailableRoomsByType = async (req, res) => {
+  try {
+    const { roomType, checkInDate, checkOutDate } = req.query;
+    const rooms = await roomModel.getAvailableRoomsByType(roomType, checkInDate, checkOutDate);
+    res.status(200).json(rooms);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 const getRoomById = async (req, res) => {
   try {
@@ -62,6 +73,7 @@ const updateRoomStatus = async (req, res, next) => {
 
 module.exports = {
   getAllRooms,
+  getAvailableRoomsByType,
   getRoomById,
   createRoom,
   updateRoom,

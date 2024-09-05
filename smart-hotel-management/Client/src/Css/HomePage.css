@@ -43,12 +43,62 @@
 .nav-link:hover {
   color: #ff6347; /* Optional: Change color on hover */
 }
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  margin-right: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: white;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  background-color: white;
+  width: 150px;
+  height: 60px;
+  display: block;
+  padding: 10px 20px;
+  color: black;
+  text-decoration: none;
+  border: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
 
 .login-button {
+  cursor: pointer;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-right: 40px;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .content, .about-section {
@@ -157,7 +207,6 @@
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 300px;
 }
 
 .room-button:hover {
@@ -172,16 +221,22 @@
 }
 
 
-.contact-section, .about-section {
+.contact-section {
   background-color: #eaeaea;
   padding: 100px 20px;
-  height: 450px;
+  height: 400px;
   margin-top: 20px;
+}
+.about-section{
+  padding: 100px 20px;
+  height: 250px;
+  margin-top: 20px;
+
 }
 
 .section-title {
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -262,4 +317,53 @@
 
 .hotel-info button:hover {
   background-color: #c81919;
+}
+
+/* Media queries for iPhone */
+@media only screen and (max-width: 768px) {
+  .welcome-message {
+    font-size: 24px;
+  }
+
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-card {
+    height: auto;
+  }
+
+  .room-image {
+    height: 150px;
+  }
+
+  .top-bar {
+    padding: 10px;
+  }
+
+  .nav-link {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .hotel-info-container {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .services,
+  .hotel-info {
+    margin: 10px 0;
+  }
+
+  .services h2,
+  .hotel-info h2 {
+    font-size: 1.5em;
+  }
+
+  .services ul,
+  .hotel-info p,
+  .hotel-info a {
+    font-size: 1em;
+  }
 }

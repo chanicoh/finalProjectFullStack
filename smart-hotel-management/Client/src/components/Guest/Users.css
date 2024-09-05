@@ -1,0 +1,85 @@
+.users-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .page-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .profile-details,
+  .my-orders,
+  .notifications,
+  .requests {
+    height: 510px;
+    background-color: #f4f4f4; /* Example background color */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  .divider {
+    margin: 20px 0;
+    border: none;
+    height: 2px;
+    background-color: #ccc;
+  }
+  
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: red;
+  }
+
+  
+  .dropdown-menuuser {
+    height: 630px;
+    display: flex; 
+    flex-direction: column; 
+    padding: 0;
+    margin: 0; 
+    list-style: none;
+    position: fixed; 
+    top: 0px; 
+    right: 0px; 
+    width: 200px; 
+    background-color:rgba(255, 255, 255, 0); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    z-index: 1000; 
+   
+  }
+  
+  .dropdown-itemuser {
+    border: none;
+    height: 100px;
+    margin-top: 5px;
+    text-decoration: none; 
+    color: #080606;
+    padding: 10px; 
+    border-bottom: 1px solid #555;
+    transition: color 0.3s ease;
+
+
+  }
+  
+  .dropdown-itemuser:hover {
+    background-color: #918e8e53; /* Changes background color on hover */
+  }
+  
+
+  .dropdown-itemuser.active {
+    background-color: #918e8e53;
+  }
+  
+  

@@ -5,8 +5,29 @@ const getAllRooms = async () => {
   return rows;
 };
 
+<<<<<<< HEAD
 const findRoomById = async (room_id) => {
   const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [room_id]);
+=======
+// Fetch rooms by type and availability
+const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
+  const [rows] = await pool.query(
+    `SELECT * FROM rooms 
+     WHERE room_type = ? 
+     AND status = 'available'
+     AND room_id NOT IN (
+       SELECT room_id FROM reservations 
+       WHERE (check_in_date < ? AND check_out_date > ?);
+     )`,
+    [roomType, checkOutDate, checkInDate]
+  );
+  return rows;
+};
+
+
+const findRoomById = async (id) => {
+  const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [id]);
+>>>>>>> acf325ecc2ee42435f7032e4d1cd1f018bc1ee81
   return rows[0];
 };
 
@@ -35,6 +56,7 @@ const deleteRoom = async (room_id) => {
 
 module.exports = {
   getAllRooms,
+  getAvailableRoomsByType,
   findRoomById,
   createRoom,
   updateRoom,
