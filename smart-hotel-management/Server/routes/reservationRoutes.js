@@ -3,7 +3,7 @@ const reservationController = require('../controllers/reservationController');
 const router = express.Router();
 
 router.get('/reservations', reservationController.getAllReservation);
-router.get('/reservations?section=orders', reservationController.getUserReservations);
+
 router.post('/reservations', reservationController.createReservation);
 router.get('/reservations/:id', reservationController.getReservationById);
 router.put('/reservations/:id', reservationController.updateReservation);

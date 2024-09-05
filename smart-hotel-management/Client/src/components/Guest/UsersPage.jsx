@@ -35,7 +35,7 @@ export const UsersPage = () => {
             'Content-Type': 'application/json',
           },
         };
-        const response = await axios.get(`/api/reservations?section=orders&userId=${user_id}`); // Assumes an endpoint that fetches the active user's details
+        const response = await axios.get(`/api/users?section=orders/${user_id}`); // Assumes an endpoint that fetches the active user's details
         setRoom(response.data);
         setRequest(response.data);
         console.log(response.data);
@@ -98,6 +98,17 @@ export const UsersPage = () => {
         break;
     }
   } ;
+  const handleStatusChange = async (orderId, status) => {
+    try {
+      const response = await axios.put(`/api/orders/${orderId}/status`, { status });
+      setRoom((prevOrders) => prevOrders.map(order => 
+        order.reservation_id === orderId ? { ...order, status } : order
+      ));
+    } catch (err) {
+      setError('Failed to update order status');
+    }
+  };
+  
 
   if (loading) return <p className="loading">Loading user data...</p>;
   if (error) return <p className="error">{error}</p>;
@@ -146,11 +157,21 @@ export const UsersPage = () => {
   <ul>
     {room && room.length > 0 ? (
       room.map((reservation, index) => (
-        <li key={index}>
+        <li key={index} className="order-item">
           <strong>Room Number:</strong> {reservation.room_number}, 
-          <strong>Room Type:</strong> {reservation.room_type}, 
           <strong>Check-in:</strong> {new Date(reservation.check_in_date).toLocaleDateString()},
           <strong>Check-out:</strong> {new Date(reservation.check_out_date).toLocaleDateString()},
+          <strong>Status:</strong> {reservation.status}
+                {reservation.status !== 'checked_in' && (
+                  <button className="check-in-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}>
+                    Check-in
+                  </button>
+                )}
+                {reservation.status === 'checked_in' && (
+                  <button className="check-out-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}>
+                    Check-out
+                  </button>
+                )}
         </li>
       ))
     ) : (
@@ -183,6 +204,7 @@ export const UsersPage = () => {
             user.requests.map((request, index) => (
               <li key={index}>
                 <strong>Request ID:</strong> {request.request_id}, <strong>Room Number:</strong> {request.room_number}, <strong>Type:</strong> {request.request_type}, <strong>Description:</strong> {request.request_description}, <strong>Status:</strong> {request.status}, <strong>Created At:</strong> {new Date(request.created_at).toLocaleString()}, <strong>Updated At:</strong> {new Date(request.updated_at).toLocaleString()}
+               
               </li>
             ))
           ) : (

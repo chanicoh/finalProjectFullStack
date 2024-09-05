@@ -31,18 +31,7 @@ const getReservationById = async (req, res, next) => {
   }
 };
 
-const getUserReservations = async (req, res, next) => {
-  try {
-    const reservation = await reservationModel.getUserReservations(req.params.id);
-    if (reservation) {
-      res.json(reservation);
-    } else {
-      res.status(404).json({ message: 'Reservation not found' });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
+
 const updateReservation =async (req, res, next) => {
     try {
        await reservationModel.updateReservation(req.params.id, req.body);
@@ -70,7 +59,6 @@ const updateReservation =async (req, res, next) => {
   getAllReservation,
     createReservation,
     getReservationById,
-    getUserReservations,
     updateReservation,
     deleteReservation
   };

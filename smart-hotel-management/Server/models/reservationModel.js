@@ -23,26 +23,7 @@ const getReservationById = async (reservation_id) => {
   return rows[0];
 };
 
-const getUserReservations = async (req, res) => {
-  const userId = req.params.userId;
 
-  try {
-      const [reservations] = await pool.query(`
-          SELECT  r.room_number,   r.room_type FROM rooms r 
-          JOIN  reservations res ON r.room_id = res.room_id WHERE 
-           res.user_id = ?;`
-          , [userId]);
-
-      if (reservations.length > 0) {
-          res.json(reservations);
-      } else {
-          res.status(404).json({ message: 'No reservations found for this user.' });
-      }
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server error' });
-  }
-};
 
 const updateReservation = async (reservation_id, updatedFields) => {
   const { check_in_date, check_out_date, total_price, status } = updatedFields;
@@ -57,4 +38,4 @@ const deleteReservation = async (reservation_id) => {
   await pool.query(`DELETE FROM reservations WHERE reservation_id = ?`, [reservation_id]);
 };
 
-module.exports = {getAllReservation, createReservation, getReservationById,getUserReservations, updateReservation, deleteReservation };
+module.exports = {getAllReservation, createReservation, getReservationById, updateReservation, deleteReservation };

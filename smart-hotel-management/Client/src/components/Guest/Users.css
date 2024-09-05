@@ -82,4 +82,25 @@
     background-color: #918e8e53;
   }
   
+  .order-item {
+    margin-bottom: 15px;
+    font-size: 1rem;
+  }
   
+  .check-in-btn, .check-out-btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .check-in-btn:hover, .check-out-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .divider {
+    margin: 20px 0;
+  }

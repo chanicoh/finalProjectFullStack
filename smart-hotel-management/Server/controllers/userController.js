@@ -34,6 +34,18 @@ const getUserById = async (req, res, next) => {
     next(err);
   }
 };
+const getUserReservations = async (req, res, next) => {
+  try {
+    const reservation = await reservationModel.getUserReservations(req.params.id);
+    if (reservation) {
+      res.json(reservation);
+    } else {
+      res.status(404).json({ message: 'Reservation not found' });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 const updateUser = async (req, res, next) => {
   try {
@@ -53,4 +65,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-module.exports = { createUser, getAllUser, getUserById, updateUser, deleteUser };
+module.exports = { createUser, getAllUser,getUserReservations, getUserById, updateUser, deleteUser };
