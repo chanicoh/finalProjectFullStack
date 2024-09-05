@@ -3,6 +3,7 @@ const roomModel = require('../models/roomModel'); // Adjust path as needed
 
 const getAllRooms = async (req, res) => {
   try {
+    console.log("shalom");
     const rooms = await roomModel.getAllRooms();
     res.status(200).json(rooms);
   } catch (error) {
@@ -12,6 +13,7 @@ const getAllRooms = async (req, res) => {
 // Fetch available rooms by type
 const getAvailableRoomsByType = async (req, res) => {
   try {
+    
     const { roomType, checkInDate, checkOutDate } = req.query;
     const rooms = await roomModel.getAvailableRoomsByType(roomType, checkInDate, checkOutDate);
     res.status(200).json(rooms);

@@ -25,6 +25,19 @@ const getReservationById = async (req, res, next) => {
       res.json(reservation);
     } else {
       res.status(404).json({ message: 'Reservation not found' });
+    } 
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getUserReservations = async (req, res, next) => {
+  try {
+    const reservation = await reservationModel.getUserReservations(req.params.id);
+    if (reservation) {
+      res.json(reservation);
+    } else {
+      res.status(404).json({ message: 'Reservation not found' });
     }
   } catch (err) {
     next(err);
@@ -50,12 +63,14 @@ const updateReservation =async (req, res, next) => {
              next(err);
         }           
  };
+
+
  
  module.exports = {
   getAllReservation,
     createReservation,
     getReservationById,
-    getReservationById,
+    getUserReservations,
     updateReservation,
     deleteReservation
   };
