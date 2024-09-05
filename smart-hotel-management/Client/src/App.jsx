@@ -7,7 +7,7 @@ import { UsersPage } from './components/Guest/UsersPage';
 import  LoginPage  from './components/Auth/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import GuestDashboard from './pages/GuestDashboard';
-import StaffDashboard from './pages/StaffDashboard';
+import RoomServiceDashboard from './pages/RoomServiceDashboard';
 import RegisterPage from './components/Auth/RegisterPage'
 //import NotFound from './pages/NotFound';
 
@@ -23,8 +23,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/guest/dashboard" element={<GuestDashboard />} />
-        <Route path="/staff/dashboard" element={<StaffDashboard />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/staff/RoomServiceDashboard" element={<RoomServiceDashboard />}/>
         {/* Add more routes as needed */}
       </Routes>
     </Router>

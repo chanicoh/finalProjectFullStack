@@ -35,7 +35,7 @@ export const UsersPage = () => {
             'Content-Type': 'application/json',
           },
         };
-        const response = await axios.get(`/api/users?section=orders/${user_id}`); // Assumes an endpoint that fetches the active user's details
+        const response = await axios.get(`/api/users/${user_id}`); // Assumes an endpoint that fetches the active user's details
         setRoom(response.data);
         setRequest(response.data);
         console.log(response.data);

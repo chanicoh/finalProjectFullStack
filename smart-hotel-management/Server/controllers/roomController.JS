@@ -78,6 +78,16 @@ const deleteRoom = async (req, res, next) => {
     next(err);
   }
 };
+const updateRoomStatus = async (req, res, next) => {
+  try {
+    const { status } = req.body; // The new status to set
+    await roomModel.updateRoom(req.params.id, { status }); // Update the room status
+    res.json({ message: 'Room status updated successfully' });
+  } catch (err) {
+    next(err);
+  }
+};
+
 
 module.exports = {
   getAllRooms,
@@ -85,5 +95,6 @@ module.exports = {
   getRoomById,
   createRoom,
   updateRoom,
-  deleteRoom
+  deleteRoom,
+  updateRoomStatus
 };

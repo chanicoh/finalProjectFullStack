@@ -30,6 +30,7 @@ function HomePage() {
       }
     };
 
+    
     fetchRooms();
   }, []);
 

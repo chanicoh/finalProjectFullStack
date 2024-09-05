@@ -1,9 +1,12 @@
-const pool = require('../config/db'); // Adjust path as needed
+const pool = require('../config/db');
 
-// Example model function
 const getAllRooms = async () => {
+<<<<<<< HEAD
 
   const [rows] = await pool.query('SELECT *FROM rooms ;');
+=======
+  const [rows] = await pool.query('SELECT * FROM rooms');
+>>>>>>> 44031a3da1336d89c857166cea34022863e354f6
   return rows;
 };
 
@@ -43,27 +46,28 @@ const findRoomById = async (id) => {
   const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [id]);
   return rows[0];
 };
+
 const createRoom = async (room) => {
-  const { room_id,room_number, room_type, status, price_per_night, description } = room;
+  const { room_number, room_type, status, price_per_night, description } = room;
   const [result] = await pool.query(
-    `INSERT INTO rooms (room_id , room_number, room_type, status, price_per_night, description)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [room_id , room_number, room_type, status, price_per_night, description, ]
+    `INSERT INTO rooms (room_number, room_type, status, price_per_night, description)
+     VALUES (?, ?, ?, ?, ?)`,
+    [room_number, room_type, status, price_per_night, description]
   );
   return result.insertId;
 };
 
 const updateRoom = async (room_id, updatedFields) => {
-  const {  room_number, room_type, status, price_per_night, description } = updatedFields;
+  const { room_number, room_type, status, price_per_night, description } = updatedFields;
   await pool.query(
     `UPDATE rooms SET room_number = ?, room_type = ?, status = ?, price_per_night = ?, description = ? 
      WHERE room_id = ?`,
-    [ room_number, room_type, status, price_per_night, description ]
+    [room_number, room_type, status, price_per_night, description, room_id]
   );
 };
 
 const deleteRoom = async (room_id) => {
-  await pool.query(`DELETE FROM rooms WHERE room_id = ?`, [room_id]);
+  await pool.query('DELETE FROM rooms WHERE room_id = ?', [room_id]);
 };
 
 module.exports = {
@@ -72,6 +76,5 @@ module.exports = {
   findRoomById,
   createRoom,
   updateRoom,
-  deleteRoom
+  deleteRoom,
 };
-
