@@ -5,10 +5,6 @@ const getAllRooms = async () => {
   return rows;
 };
 
-<<<<<<< HEAD
-const findRoomById = async (room_id) => {
-  const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [room_id]);
-=======
 // Fetch rooms by type and availability
 const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
   const [rows] = await pool.query(
@@ -27,7 +23,6 @@ const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
 
 const findRoomById = async (id) => {
   const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [id]);
->>>>>>> acf325ecc2ee42435f7032e4d1cd1f018bc1ee81
   return rows[0];
 };
 
