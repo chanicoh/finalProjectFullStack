@@ -23,12 +23,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/guest/dashboard" element={<GuestDashboard />} />
-<<<<<<< HEAD
         <Route path="/staff/RoomServiceDashboard" element={<RoomServiceDashboard />}/>
-=======
-        <Route path="/staff/dashboard" element={<StaffDashboard />} />
-        <Route path="/reservation" element={<Reservation />} />
->>>>>>> acf325ecc2ee42435f7032e4d1cd1f018bc1ee81
         {/* Add more routes as needed */}
       </Routes>
     </Router>

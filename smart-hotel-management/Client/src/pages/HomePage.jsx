@@ -102,38 +102,6 @@ function HomePage() {
 
   return (
     <div className="home-page">
-<<<<<<< HEAD
-      <div className="top-bar">
-        <div className="navigation">
-          <Link
-            to="/"
-            className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
-            onClick={() => handleNavigation('home')}
-          >
-            Home
-          </Link>
-          <button
-            className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}
-            onClick={() => handleNavigation('rooms')}
-          >
-            Rooms
-          </button>
-          <button
-            className={`nav-link ${activeSection === 'about' ? 'active' : ''}`}
-            onClick={() => handleNavigation('about')}
-          >
-            hotel
-          </button>
-          <button
-            className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`}
-            onClick={() => handleNavigation('contact')}
-          >
-            Contact Us
-          </button>
-        </div>
-        <Link to="/staff/RoomServiceDashboard" className="roomserver">roomserver</Link>
-        <Link to="/login" className="login-button">Login</Link>
-=======
     <div className="top-bar">
       <div className="navigation">
         <Link
@@ -161,7 +129,6 @@ function HomePage() {
         >
           Contact Us
         </button>
->>>>>>> acf325ecc2ee42435f7032e4d1cd1f018bc1ee81
       </div>
       <div className="user-actions">
         {user ? (
