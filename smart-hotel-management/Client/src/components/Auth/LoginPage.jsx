@@ -21,7 +21,8 @@ const LoginPage = () => {
         if (user.role === 'guest') {
           navigate('/', { state: { user } }); // Navigate to the main page for guest
         } else {
-          navigate(`/${user.role}/dashboard`, { state: { user } }); // Navigate to role-specific dashboard
+         // navigate(`/${user.role}/dashboard`, { state: { user } }); // Navigate to role-specific dashboard
+           navigate('/', { state: { user } });
         }
       }
     } catch (error) {

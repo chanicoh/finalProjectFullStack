@@ -29,6 +29,7 @@ function HomePage() {
       }
     };
 
+    
     fetchRooms();
   }, []);
 
@@ -113,6 +114,7 @@ function HomePage() {
             Contact Us
           </button>
         </div>
+        <Link to="/staff/RoomServiceDashboard" className="roomserver">roomserver</Link>
         <Link to="/login" className="login-button">Login</Link>
       </div>
 
