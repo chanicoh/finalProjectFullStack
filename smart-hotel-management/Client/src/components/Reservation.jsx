@@ -18,7 +18,7 @@ function Reservation() {
  
   const fetchAvailableRooms = async () => {
     try {
-      const response = await axios.get('/api/rooms', {
+      const response = await axios.get('/api/rooms/available', {
         params: { checkInDate, checkOutDate, roomType }
       });
       setRooms(response.data);

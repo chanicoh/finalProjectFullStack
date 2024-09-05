@@ -4,7 +4,6 @@ const roomController = require('../controllers/roomController'); // Adjust path 
 
 // Define routes with proper callback functions
 router.get('/rooms', roomController.getAllRooms);
-
 router.get('/rooms/available', roomController.getAvailableRoomsByType);
 router.get('/rooms/:id', roomController.getRoomById);
 router.post('/rooms', roomController.createRoom);
