@@ -2,7 +2,7 @@ const pool = require('../config/db'); // Adjust path as needed
 
 // Example model function
 const getAllRooms = async () => {
-  const [rows] = await pool.query('SELECT *FROM rooms;');
+  const [rows] = await pool.query('SELECT *FROM users ;');
   return rows;
 };
 

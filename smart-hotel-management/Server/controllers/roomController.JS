@@ -3,7 +3,7 @@ const roomModel = require('../models/roomModel'); // Adjust path as needed
 
 const getAllRooms = async (req, res) => {
   try {
-    console.log("shalom");
+    console.log("sss");
     const rooms = await roomModel.getAllRooms();
     res.status(200).json(rooms);
   } catch (error) {

@@ -14,11 +14,12 @@ function Reservation() {
   const [selectedRoom, setSelectedRoom] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const [showRooms, setShowRooms] = useState(false);
-
+  const today = new Date().toISOString().split('T')[0];
  
   const fetchAvailableRooms = async () => {
     try {
-      const response = await axios.get('/api/rooms/available', {
+      console.log(checkInDate, checkOutDate, roomType)
+      const response = await axios.get('/api/rooms', {
         params: { checkInDate, checkOutDate, roomType }
       });
       setRooms(response.data);
@@ -79,7 +80,11 @@ function Reservation() {
             type="date"
             id="checkIn"
             value={checkInDate}
-            onChange={(e) => setCheckInDate(e.target.value)}
+            onChange={(e) => {
+              setCheckInDate(e.target.value);
+              setCheckOutDate(''); // Reset check-out date when check-in changes
+            }}
+            min={today} // Disable past dates
             required
           />
         </div>
@@ -88,9 +93,10 @@ function Reservation() {
           <input
             type="date"
             id="checkOut"
-            value={checkOutDate}
             onChange={(e) => setCheckOutDate(e.target.value)}
+            min={checkInDate} // Restrict check-out date to be after check-in
             required
+            disabled={!checkInDate} // Disable check-out until check-in is selected
           />
         </div>
         <button type="submit" className="submit-button">
