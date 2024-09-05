@@ -1,12 +1,7 @@
 const pool = require('../config/db');
 
 const getAllRooms = async () => {
-<<<<<<< HEAD
-
   const [rows] = await pool.query('SELECT *FROM rooms ;');
-=======
-  const [rows] = await pool.query('SELECT * FROM rooms');
->>>>>>> 44031a3da1336d89c857166cea34022863e354f6
   return rows;
 };
 
