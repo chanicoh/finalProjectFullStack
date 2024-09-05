@@ -2,23 +2,40 @@ const pool = require('../config/db'); // Adjust path as needed
 
 // Example model function
 const getAllRooms = async () => {
-  const [rows] = await pool.query('SELECT *FROM users ;');
+
+  const [rows] = await pool.query('SELECT *FROM rooms ;');
   return rows;
 };
 
 // Fetch rooms by type and availability
 const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
-  const [rows] = await pool.query(
-    `SELECT * FROM rooms 
-     WHERE room_type = ? 
-     AND status = 'available'
-     AND room_id NOT IN (
-       SELECT room_id FROM reservations 
-       WHERE (check_in_date < ? AND check_out_date > ?);
-     )`,
-    [roomType, checkOutDate, checkInDate]
-  );
-  return rows;
+  try {
+    // Check if all required parameters are passed
+    if (!roomType || !checkInDate || !checkOutDate) {
+      console.log("Missing parameters");
+      return [];
+    }
+
+    // Query to get available rooms that are not booked between checkInDate and checkOutDate
+    const [rows] = await pool.query(
+      `SELECT * FROM rooms 
+       WHERE room_type = ? 
+       AND status = 'available'
+       AND room_id NOT IN (
+         SELECT room_id FROM reservations
+         WHERE (check_in_date < ? AND check_out_date > ?)
+       )`,
+      [roomType, checkOutDate, checkInDate]
+    );
+
+    // Log the room type for debugging purposes
+    console.log("Room type:", roomType);
+
+    return rows;
+  } catch (error) {
+    console.error("Error fetching rooms:", error);
+    throw error; // Optional: Re-throw error to handle it outside
+  }
 };
 
 

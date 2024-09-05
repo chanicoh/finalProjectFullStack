@@ -20,7 +20,7 @@ function Reservation() {
     try {
       console.log(checkInDate, checkOutDate, roomType)
       const response = await axios.get('/api/rooms', {
-        params: { checkInDate, checkOutDate, roomType }
+        params: {roomType, checkInDate, checkOutDate }
       });
       setRooms(response.data);
       setShowRooms(true); // Show the room selection area
