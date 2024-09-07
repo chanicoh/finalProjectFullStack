@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../Css/ReservationPage.css';
+import './ReservationPage.css';
 
 function Reservation() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { roomType, user } = location.state || {};
   const user_id = user?.user_id || ''; // Ensure user_id is defined
@@ -13,14 +14,17 @@ function Reservation() {
   const [selectedRoom, setSelectedRoom] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const [showRooms, setShowRooms] = useState(false);
-
+  const today = new Date().toISOString().split('T')[0];
+ 
   const fetchAvailableRooms = async () => {
     try {
+      console.log(checkInDate, checkOutDate, roomType)
       const response = await axios.get('/api/rooms', {
-        params: { checkInDate, checkOutDate, roomType }
+        params: {roomType, checkInDate, checkOutDate }
       });
       setRooms(response.data);
       setShowRooms(true); // Show the room selection area
+      console.log(response.data);
     } catch (error) {
       console.error('Error fetching available rooms', error);
     }
@@ -41,6 +45,29 @@ function Reservation() {
     const endDate = new Date(checkOutDate);
     const diffTime = Math.abs(endDate - startDate);
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  };
+  const saveOrder = async () => {
+    if (!selectedRoom) {
+      alert('Please select a room before saving the order.');
+      return;
+    }
+    const reservationData = {
+      user_id,
+      room_id: selectedRoom.room_id,
+      check_in_date: checkInDate,
+      check_out_date: checkOutDate,
+      total_price: totalPrice,
+      status: 'booked' // or another appropriate status
+    };
+    try {
+      const response = await axios.post('/api/reservations', reservationData);
+      alert(`Reservation saved! Your reservation ID is ${response.data.reservationId}`);
+      navigate('/', { state: { user } });
+    } catch (error) {
+      console.error('Error saving the reservation', error);
+      alert('There was an error saving your reservation.');
+    }
   };
 
   return (
@@ -53,7 +80,11 @@ function Reservation() {
             type="date"
             id="checkIn"
             value={checkInDate}
-            onChange={(e) => setCheckInDate(e.target.value)}
+            onChange={(e) => {
+              setCheckInDate(e.target.value);
+              setCheckOutDate(''); // Reset check-out date when check-in changes
+            }}
+            min={today} // Disable past dates
             required
           />
         </div>
@@ -62,9 +93,10 @@ function Reservation() {
           <input
             type="date"
             id="checkOut"
-            value={checkOutDate}
             onChange={(e) => setCheckOutDate(e.target.value)}
+            min={checkInDate} // Restrict check-out date to be after check-in
             required
+            disabled={!checkInDate} // Disable check-out until check-in is selected
           />
         </div>
         <button type="submit" className="submit-button">
@@ -98,6 +130,9 @@ function Reservation() {
           <h2>Reservation Summary</h2>
           <p>Room: {selectedRoom.room_number}</p>
           <p>Total Price: ${totalPrice}</p>
+          <button onClick={saveOrder} className="save-order-button">
+            Booked
+          </button>
         </div>
       )}
     </div>

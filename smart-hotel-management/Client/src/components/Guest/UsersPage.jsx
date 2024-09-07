@@ -12,11 +12,11 @@ export const UsersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeSection, setActiveSection] = useState();
-
+  
   const location = useLocation();
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
   const [user, setUser] = useState(location.state?.user || null); // Destructure to get the user state value
-
+  const user_id = user?.user_id || ''; // Ensure user_id is defined
   console.log("Location state:", location.state);
 
   
@@ -35,7 +35,7 @@ export const UsersPage = () => {
             'Content-Type': 'application/json',
           },
         };
-        const response = await axios.get(`/api/users`); // Assumes an endpoint that fetches the active user's details
+        const response = await axios.get(`/api/users/${user_id}`); // Assumes an endpoint that fetches the active user's details
         setRoom(response.data);
         setRequest(response.data);
         console.log(response.data);
@@ -99,6 +99,17 @@ export const UsersPage = () => {
         break;
     }
   } ;
+  const handleStatusChange = async (orderId, status) => {
+    try {
+      const response = await axios.put(`/api/orders/${orderId}/status`, { status });
+      setRoom((prevOrders) => prevOrders.map(order => 
+        order.reservation_id === orderId ? { ...order, status } : order
+      ));
+    } catch (err) {
+      setError('Failed to update order status');
+    }
+  };
+  
 
   if (loading) return <p className="loading">Loading user data...</p>;
   if (error) return <p className="error">{error}</p>;
@@ -143,19 +154,32 @@ export const UsersPage = () => {
       <hr className="divider" />
 
       <div className="my-orders" ref={ordersRef}>
-        <h2 className="section-title">My Orders</h2>
-        <ul>
-          {user.orders && user.orders.length > 0 ? (
-            user.orders.map((order, index) => (
-              <li key={index}>
-                <strong>Room Number:</strong> {order.room_number}, <strong>Room Type:</strong> {order.room_type}
-              </li>
-            ))
-          ) : (
-            <p>No orders found.</p>
-          )}
-        </ul>
-      </div>
+  <h2 className="section-title">My Orders</h2>
+  <ul>
+    {room && room.length > 0 ? (
+      room.map((reservation, index) => (
+        <li key={index} className="order-item">
+          <strong>Room Number:</strong> {reservation.room_number}, 
+          <strong>Check-in:</strong> {new Date(reservation.check_in_date).toLocaleDateString()},
+          <strong>Check-out:</strong> {new Date(reservation.check_out_date).toLocaleDateString()},
+          <strong>Status:</strong> {reservation.status}
+                {reservation.status !== 'checked_in' && (
+                  <button className="check-in-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}>
+                    Check-in
+                  </button>
+                )}
+                {reservation.status === 'checked_in' && (
+                  <button className="check-out-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}>
+                    Check-out
+                  </button>
+                )}
+        </li>
+      ))
+    ) : (
+      <p>No orders found.</p>
+    )}
+  </ul>
+</div>
 
       <hr className="divider" />
 
@@ -181,6 +205,7 @@ export const UsersPage = () => {
             user.requests.map((request, index) => (
               <li key={index}>
                 <strong>Request ID:</strong> {request.request_id}, <strong>Room Number:</strong> {request.room_number}, <strong>Type:</strong> {request.request_type}, <strong>Description:</strong> {request.request_description}, <strong>Status:</strong> {request.status}, <strong>Created At:</strong> {new Date(request.created_at).toLocaleString()}, <strong>Updated At:</strong> {new Date(request.updated_at).toLocaleString()}
+               
               </li>
             ))
           ) : (

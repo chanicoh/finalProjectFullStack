@@ -15,6 +15,26 @@ const getAllUser = async () => {
   const [rows] = await pool.query('SELECT *FROM users;');
   return rows;
 };
+const getUserReservations = async (req, res) => {
+  const user_id = req.params.userId;
+
+  try {
+      const [reservations] = await pool.query(`
+          SELECT  r.room_number,   r.room_type FROM rooms r 
+          JOIN  reservations res ON r.room_id = res.room_id WHERE 
+           res.user_id = ?;`
+          , [user_id]);
+
+      if (reservations.length > 0) {
+          res.json(reservations);
+      } else {
+          res.status(404).json({ message: 'No reservations found for this user.' });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+  }
+};
 
 const getUserById = async (user_id) => {
   const [rows] = await pool.query(`SELECT * FROM users WHERE user_id = ?`, [user_id]);
@@ -39,4 +59,4 @@ const deleteUser = async (user_id) => {
   await pool.query(`DELETE FROM users WHERE user_id = ?`, [user_id]);
 };
 
-module.exports = { createUser,getAllUser, getUserById, getUserByUsername, updateUser, deleteUser };
+module.exports = { createUser,getAllUser, getUserById,getUserReservations, getUserByUsername, updateUser, deleteUser };

@@ -3,6 +3,7 @@ const roomModel = require('../models/roomModel'); // Adjust path as needed
 
 const getAllRooms = async (req, res) => {
   try {
+    
     const rooms = await roomModel.getAllRooms();
     res.status(200).json(rooms);
   } catch (error) {
@@ -13,7 +14,24 @@ const getAllRooms = async (req, res) => {
 const getAvailableRoomsByType = async (req, res) => {
   try {
     const { roomType, checkInDate, checkOutDate } = req.query;
-    const rooms = await roomModel.getAvailableRoomsByType(roomType, checkInDate, checkOutDate);
+    let droomType='DeluxeRoom';
+
+    if (roomType =='Deluxe Room'){
+      droomType='DeluxeRoom';
+    } 
+   else if (roomType =='Standard Room'){
+      droomType='StandardRoom';
+   }
+   else if (roomType =='Family Room'){
+       droomType='FamilyRoom';
+    }
+    else {
+      droomType='SuiteRoom';
+    }
+      
+    
+
+    const rooms = await roomModel.getAvailableRoomsByType(droomType, checkInDate, checkOutDate);
     res.status(200).json(rooms);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

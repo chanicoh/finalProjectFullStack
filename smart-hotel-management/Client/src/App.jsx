@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes,Navigate } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import Reservation from './components/Reservation';
-import ServiceRequest from './components/ServiceRequest';
+import Reservation from './components/Guest/Reservation';
+import ServiceRequest from './components/Guest/ServiceRequest';
 import { UsersPage } from './components/Guest/UsersPage';
 import  LoginPage  from './components/Auth/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
