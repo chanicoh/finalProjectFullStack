@@ -86,7 +86,6 @@ const deleteServiceRequest = async (req, res, next) => {
 const completeServiceRequest = async (req, res, next) => {
   try {
     const request_id = req.params.id;
-    console.log('request_id:', request_id);
 
     // Ensure request ID is valid
     if (!request_id) {
@@ -97,7 +96,7 @@ const completeServiceRequest = async (req, res, next) => {
     const result = await serviceRequestModel.updateServiceRequest(request_id, { status: 'completed' });
 
     // Check if update was successful
-    if (!result.success) { // Check based on updated model's response
+    if (!result.success) { 
       return res.status(404).json({ error: 'Service request not found or update failed' });
     }
 
@@ -107,6 +106,7 @@ const completeServiceRequest = async (req, res, next) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 
 module.exports = {
