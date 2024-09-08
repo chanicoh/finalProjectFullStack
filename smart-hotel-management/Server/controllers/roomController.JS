@@ -26,11 +26,12 @@ const getAvailableRoomsByType = async (req, res) => {
       droomType='StandardRoom';
    }
    else if (roomType =='Family Room'){
-       droomType='FamilyRoom';
+       droomType='FamilySuite';
     }
     else {
-      droomType='SuiteRoom';
+      droomType='PresidentialSuite';
     }
+    console.log( droomType)
     const rooms = await roomModel.getAvailableRoomsByType(droomType, checkInDate, checkOutDate);
     res.status(200).json(rooms);
   } catch (error) {
