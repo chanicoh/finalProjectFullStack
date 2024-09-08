@@ -1,12 +1,7 @@
 const pool = require('../config/db');
 
 const getAllRooms = async () => {
-<<<<<<< HEAD
-
-  const [rows] = await pool.query('SELECT *FROM rooms ;');
-=======
-  const [rows] = await pool.query('SELECT * FROM rooms');
->>>>>>> 44031a3da1336d89c857166cea34022863e354f6
+  const [rows] = await pool.query('SELECT * FROM rooms;');
   return rows;
 };
 
@@ -40,7 +35,6 @@ const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
     throw error; // Optional: Re-throw error to handle it outside
   }
 };
-
 
 const findRoomById = async (id) => {
   const [rows] = await pool.query('SELECT * FROM rooms WHERE room_id = ?', [id]);
