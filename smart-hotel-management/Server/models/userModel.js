@@ -17,24 +17,26 @@ const getAllUser = async () => {
 };
 const getUserReservations = async (user_id) => {
   try {
-    // Check if all required parameters are passed
     if (!user_id) {
-      console.log("Missing parameters");
+      console.log("Missing user_id");
       return [];
     }
-  
-  const [rows] = await pool.query(`
-      SELECT  r.room_number,   r.room_type, res.check_in_date, res.check_out_date, res.status  FROM rooms r 
-      JOIN  reservations res ON r.room_id = res.room_id WHERE 
-      res.user_id = ?;`, 
-      [user_id]);
+    // Log the user_id and the query being executed
+    console.log('Fetching reservations for user_id:', user_id);
 
-      return rows;
+    const [rows] = await pool.query(`
+      SELECT r.room_number, r.room_type, res.check_in_date, res.check_out_date, res.status
+      FROM rooms r
+      JOIN reservations res ON r.room_id = res.room_id
+      WHERE res.user_id = ?;
+    `, [user_id]);
+
+    console.log('Fetched reservations:', rows);
+    return rows;
   } catch (error) {
-    console.error("Error fetching rooms:", error);
-    throw error; // Optional: Re-throw error to handle it outside
+    console.error("Error fetching reservations:", error);
+    throw error;
   }
-  
 };
 
 const getUserById = async (user_id) => {

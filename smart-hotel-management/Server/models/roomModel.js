@@ -13,7 +13,7 @@ const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
       console.log("Missing parameters");
       return [];
     }
-
+    console.log( roomType)
     // Query to get available rooms that are not booked between checkInDate and checkOutDate
     const [rows] = await pool.query(
       `SELECT * FROM rooms 
@@ -27,8 +27,7 @@ const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
     );
 
     // Log the room type for debugging purposes
-    console.log("Room type:", roomType);
-
+    console.log(rows);
     return rows;
   } catch (error) {
     console.error("Error fetching rooms:", error);
