@@ -27,14 +27,14 @@ const getServiceRequestById = async (request_id) => {
 };
 
 const updateServiceRequest = async (request_id, updatedFields) => {
-  const { request_type, request_description, status } = updatedFields;
+  const { status } = updatedFields;
 
   try {
     const [result] = await pool.query(
       `UPDATE servicerequests 
-       SET request_type = ?, request_description = ?, status = ? 
+       SET status = ? 
        WHERE request_id = ?`,
-      [request_type || null, request_description || null, status='complete', request_id]
+      [status, request_id]
     );
 
     // Check if any rows were affected
@@ -50,6 +50,7 @@ const updateServiceRequest = async (request_id, updatedFields) => {
     return { success: false, message: 'Error updating service request', error };
   }
 };
+
 
 
 

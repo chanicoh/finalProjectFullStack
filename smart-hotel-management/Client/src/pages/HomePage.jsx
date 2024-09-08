@@ -111,6 +111,7 @@ function HomePage() {
         >
           Home
         </Link>
+       
         <button
           className={`nav-link ${activeSection === 'rooms' ? 'active' : ''}`}
           onClick={() => handleNavigation('rooms')}
@@ -129,6 +130,13 @@ function HomePage() {
         >
           Contact Us
         </button>
+        {/* Conditionally render the serviceRoom link only if user is staff */}
+        {user?.role === 'staff' && (
+            <Link to="/RoomServiceDashboard" className="nav-link button">
+              Service Room
+            </Link>
+          )}
+        
       </div>
       <div className="user-actions">
         {user ? (
@@ -151,12 +159,14 @@ function HomePage() {
             </div>
           </>
         ) : (
+          
           <Link to="/login" className="login-button">
             Login
           </Link>
         )}
       </div>
     </div>
+
 
       <div className="content" ref={homeRef}>
         <div className="overlay">
@@ -168,6 +178,7 @@ function HomePage() {
           className="home-image"
         />
       </div>
+
 
       <div className="rooms-section" ref={roomsRef}>
         <h2>ROOMS</h2>

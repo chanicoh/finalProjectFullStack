@@ -17,8 +17,7 @@ router.put('/servicerequests/:id', serviceRequestController.updateServiceRequest
 // Delete a service request by ID
 router.delete('/servicerequests/:id', serviceRequestController.deleteServiceRequest);
 
-// Mark a service request as completed
-//router.put('/servicerequests/:id/complete', serviceRequestController.completeServiceRequest);
+
 
 router.patch('/servicerequests/:id/complete', serviceRequestController.completeServiceRequest);
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import './Users.css';
+import '../../Css/Users.css';
 
 export const UsersPage = () => {
 
@@ -49,6 +49,7 @@ export const UsersPage = () => {
       }
     };
 
+    console.log(user);
     fetchUsers();
   }, []);
 
