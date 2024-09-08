@@ -276,20 +276,24 @@ function HomePage() {
            you with a wonderful and extremely comfortable hospitality experience, 
            which will allow you to experience the best that this beautiful and historic 
            city has to offer.
-Here you will enjoy optimal proximity to all the hot attractions of the city, 
-which are just a few minutes' walk away, as well as pleasant hiking trails, plenty 
-of excellent local restaurants and charming cafes.
-The pampering continues at the height of comfort even in the hotel 
-itself with modern and pleasant guest rooms overlooking the unique view of 
-the city, which is seen at its best during the magical night hours; A warm and 
-relaxed homely atmosphere is present in all the designed interiors; A staff that 
-is at your disposal around the clock and will provide an answer to every need and a 
-friendly concierge service that will be happy to share with you secret tips about the 
-best places to eat in Bucharest, the prestigious shows, the leading galleries and the 
-most exciting attractions. Add to all this a rich breakfast to start the day full of 
-energy, a selection of refreshing drinks served in the hotel restaurant alongside a 
-variety of excellent international dishes, and you will have a vacation in Bucharest 
-full of unforgettable experiences, which can also be experienced by experiential pedaling on the bicycles offered for rent at the hotel's reception desk.</p>
+           Here you will enjoy optimal proximity to all the hot attractions of the city, 
+           which are just a few minutes' walk away, as well as pleasant hiking trails, plenty 
+           of excellent local restaurants and charming cafes.
+           The pampering continues at the height of comfort even in the hotel 
+           itself with modern and pleasant guest rooms overlooking the unique view of 
+           the city, which is seen at its best during the magical night hours; A warm and 
+           relaxed homely atmosphere is present in all the designed interiors; A staff that 
+           is at your disposal around the clock and will provide an answer to every need and a 
+           friendly concierge service that will be happy to share with you secret tips about the 
+          best places to eat in Bucharest, the prestigious shows, the leading galleries and the 
+           most exciting attractions. Add to all this a rich breakfast to start the day full of 
+           energy, a selection of refreshing drinks served in the hotel restaurant alongside a 
+           variety of excellent international dishes, and you will have a vacation in Bucharest 
+           full of unforgettable experiences, which can also be experienced by experiential pedaling on the bicycles offered for rent at the hotel's reception desk.</p>
+          <video
+          src={require('../assets/video.mp4')}
+          className="room-video"
+        />
       </div>
       <div className="hotel-info-container">
         <div className="hotel-info">
