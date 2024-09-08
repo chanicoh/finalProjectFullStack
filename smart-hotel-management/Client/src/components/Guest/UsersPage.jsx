@@ -35,7 +35,10 @@ export const UsersPage = () => {
             'Content-Type': 'application/json',
           },
         };
-        const response = await axios.get(`/api/users/${user_id}`); // Assumes an endpoint that fetches the active user's details
+        console.log(`/api/users`);
+        const response = await axios.get(`/api/users`,{//צריך לייבא את החדרים של המשתמש
+          params : {user_id}
+        }); // Assumes an endpoint that fetches the active user's details
         setRoom(response.data);
         setRequest(response.data);
         console.log(response.data);

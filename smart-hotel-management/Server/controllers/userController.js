@@ -36,7 +36,9 @@ const getUserById = async (req, res, next) => {
 };
 const getUserReservations = async (req, res, next) => {
   try {
-    const reservation = await reservationModel.getUserReservations(req.params.id);
+    const user_i=req.query;
+    console.log(user_i);   
+    const reservation = await userModel.getUserReservations(user_i);
     if (reservation) {
       res.json(reservation);
     } else {

@@ -12,13 +12,9 @@ const pool = mysql.createPool({
 });
 
 
-let sql = `SELECT * FROM rooms 
-WHERE room_type = 'StandardRoom'
-AND status = 'available'
-AND room_id NOT IN (
-  SELECT room_id FROM reservations 
-  WHERE (check_in_date < 25/08/2024 AND check_out_date > 29/08/2024)
-)`
+let sql = `SELECT  r.room_number,   r.room_type ,res.check_in_date, res.check_out_date, res.status  FROM rooms r 
+      JOIN  reservations res ON r.room_id = res.room_id WHERE 
+      res.user_id = 324245935;`
 
 console.log(sql)
 pool.execute(sql,function (err,result){
