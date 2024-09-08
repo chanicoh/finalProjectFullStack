@@ -13,7 +13,10 @@ const getAllRooms = async (req, res) => {
 // Fetch available rooms by type
 const getAvailableRoomsByType = async (req, res) => {
   try {
-    const { roomType, checkInDate, checkOutDate } = req.query;
+    const roomType=req.query.roomType;
+    const checkInDate=req.query.checkInDate;
+    const checkOutDate=req.query.checkOutDate;
+    //const { roomType, checkInDate, checkOutDate } = req.query;
     let droomType='DeluxeRoom';
 
     if (roomType =='Deluxe Room'){
@@ -23,14 +26,12 @@ const getAvailableRoomsByType = async (req, res) => {
       droomType='StandardRoom';
    }
    else if (roomType =='Family Room'){
-       droomType='FamilyRoom';
+       droomType='FamilySuite';
     }
     else {
-      droomType='SuiteRoom';
+      droomType='PresidentialSuite';
     }
-      
-    
-
+    console.log( droomType)
     const rooms = await roomModel.getAvailableRoomsByType(droomType, checkInDate, checkOutDate);
     res.status(200).json(rooms);
   } catch (error) {

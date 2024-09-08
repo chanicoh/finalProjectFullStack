@@ -1,7 +1,11 @@
 const pool = require('../config/db');
 
 const getAllRooms = async () => {
+<<<<<<< HEAD
   const [rows] = await pool.query('SELECT * FROM rooms;');
+=======
+  const [rows] = await pool.query('SELECT *FROM rooms ;');
+>>>>>>> 9926570bfeb3e2dfb948e3ffb510604a40b94761
   return rows;
 };
 
@@ -17,8 +21,8 @@ const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
     // Query to get available rooms that are not booked between checkInDate and checkOutDate
     const [rows] = await pool.query(
       `SELECT * FROM rooms 
-       WHERE room_type = ? 
-       AND status = 'available'
+       WHERE room_type = ?
+       and status = 'available'
        AND room_id NOT IN (
          SELECT room_id FROM reservations
          WHERE (check_in_date < ? AND check_out_date > ?)
@@ -28,6 +32,7 @@ const getAvailableRoomsByType = async (roomType, checkInDate, checkOutDate) => {
 
     // Log the room type for debugging purposes
     console.log("Room type:", roomType);
+    console.log(rows);
 
     return rows;
   } catch (error) {
