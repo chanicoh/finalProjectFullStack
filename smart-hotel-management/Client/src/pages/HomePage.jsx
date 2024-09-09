@@ -285,11 +285,12 @@ function HomePage() {
            relaxed homely atmosphere is present in all the designed interiors; A staff that 
            is at your disposal around the clock and will provide an answer to every need and a 
            friendly concierge service that will be happy to share with you secret tips about the 
-          best places to eat in Bucharest, the prestigious shows, the leading galleries and the 
+           best places to eat in Bucharest, the prestigious shows, the leading galleries and the 
            most exciting attractions. Add to all this a rich breakfast to start the day full of 
            energy, a selection of refreshing drinks served in the hotel restaurant alongside a 
            variety of excellent international dishes, and you will have a vacation in Bucharest 
-           full of unforgettable experiences, which can also be experienced by experiential pedaling on the bicycles offered for rent at the hotel's reception desk.</p>
+           full of unforgettable experiences, which can also be experienced by experiential pedaling
+            on the bicycles offered for rent at the hotel's reception desk.</p>
           <video
           src={require('../assets/video.mp4')}
           className="room-video"
