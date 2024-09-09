@@ -15,6 +15,7 @@ export const UsersPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
 
+
   
   const location = useLocation();
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
@@ -128,27 +129,34 @@ export const UsersPage = () => {
     <div className="users-page">
       <h1 className="page-title">User Profile</h1>
       <nav className="dropdownuser">
-        <div className="dropdown-menuuser">
-          <button 
-          className={`dropdown-itemuser ${activeSection === 'profile' ? 'active' : ''}`}
-           onClick={() => handleNavigation('profile')}>
-            Profile</button>
-
-          <button 
-          className={`dropdown-itemuser ${activeSection === 'orders' ? 'active' : ''}`} 
-          onClick={() => handleNavigation('orders')}>
-            My Orders</button>
-
-          <button  
-          className={`dropdown-itemuser ${activeSection === 'notifications' ? 'active' : ''}`}
-          onClick={() => handleNavigation('notifications')}>
-            Notifications</button>
-
-          <button 
-          className={`dropdown-itemuser ${activeSection === 'requests' ? 'active' : ''}`} 
-          onClick={() => handleNavigation('requests')}>
-            Requests</button>
-
+      <button className="hamburger-menu" onClick={handleMenuToggle}>
+          &#9776;
+        </button>
+        <div className={`dropdown-menuuser ${menuOpen ? 'open' : ''}`}>
+          <button
+            className={`dropdown-itemuser ${activeSection === 'profile' ? 'active' : ''}`}
+            onClick={() => handleNavigation('profile')}
+          >
+            Profile
+          </button>
+          <button
+            className={`dropdown-itemuser ${activeSection === 'orders' ? 'active' : ''}`}
+            onClick={() => handleNavigation('orders')}
+          >
+            My Orders
+          </button>
+          <button
+            className={`dropdown-itemuser ${activeSection === 'notifications' ? 'active' : ''}`}
+            onClick={() => handleNavigation('notifications')}
+          >
+            Notifications
+          </button>
+          <button
+            className={`dropdown-itemuser ${activeSection === 'requests' ? 'active' : ''}`}
+            onClick={() => handleNavigation('requests')}
+          >
+            Requests
+          </button>
         </div>
       </nav>
       <div className="profile-details" ref={profileRef}>
