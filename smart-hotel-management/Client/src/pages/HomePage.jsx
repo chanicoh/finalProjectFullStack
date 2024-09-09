@@ -5,7 +5,7 @@ import '../Css/HomePage.css';
 import '../assets/hotelHOME.png';
 
 function HomePage() {
-  //עובד
+  //
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
