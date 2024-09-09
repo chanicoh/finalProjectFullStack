@@ -5,6 +5,7 @@ import '../Css/HomePage.css';
 import '../assets/hotelHOME.png';
 
 function HomePage() {
+  //עובד
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -167,7 +168,7 @@ function HomePage() {
       </div>
     </div>
 
-
+      <div className='sect'>
       <div className="content" ref={homeRef}>
         <div className="overlay">
           <h1 className="welcome-message">Welcome to Our Hotel</h1>
@@ -269,7 +270,7 @@ function HomePage() {
       </div>
 
       <div className="about-section" ref={aboutRef}>
-        <h2 className="section-title"></h2>
+        <div className="section-title">
         <p>About the hotel
            Located in a perfect location in the heart of the Romanian 
            capital, the Leonardo Hotel Bucharest City Center will pamper 
@@ -295,38 +296,30 @@ function HomePage() {
           src={require('../assets/video.mp4')}
           className="room-video"
         />
-      </div>
-      <div className="hotel-info-container">
-        <div className="hotel-info">
-          <h2>Hotel Information</h2>
-          <p>Address: Calea Victoriei 166, 010096 Bucharest</p>
-          <a href="#">View Map</a>
-          <p>Phone: +40 21 2125558</p>
-          <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
-          <button>Check Availability</button>
-        </div>
-
-        <div className="services">
-          <h2>Services</h2>
+         <div className="hotel-info">
+          <h2>GOOD TO KNOW</h2>
           <ul>
-            <li>Free WiFi</li>
-            <li>Breakfast Included</li>
-            <li>Bar</li>
-            <li>Restaurant</li>
-            <li>Fitness Center</li>
-            <li>Non-Smoking Hotel</li>
-            <li>Meeting Rooms</li>
-            <li>Air Conditioning</li>
-            <li>24-Hour Reception</li>
+            <li>Number of rooms: 78</li>
+            <li>Check in: 15:00</li>
+            <li>Check out:12:00</li>
+            <li>Reception 24 hours a day</li>
+            <li>Free unlimited Wi-Fi</li>
+            <li>Non smoking hotel</li>
+            <li>Air conditioned hotel</li>
+            <li>Public parking nearby:
+            Lei 5/hour</li>
           </ul>
         </div>
+        </div>
       </div>
+     
       
       <div className="contact-section" ref={contactRef}>
-        <h2 className="section-title">Contact Us</h2>
+        <h2 className="contact-title">Contact Us</h2>
         <p>Address: 123 Hotel Street, City, Country</p>
         <p>Phone: +123 456 789</p>
         <p>Email: contact@hotel.com</p>
+      </div>
       </div>
     </div>
   );
