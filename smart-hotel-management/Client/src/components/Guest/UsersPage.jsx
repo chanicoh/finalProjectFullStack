@@ -88,7 +88,7 @@ export const UsersPage = () => {
   }, []);
 
   const handleRequestWrite = (roomId) => {
-    navigate('/ServiceRequest', { state: { user, room_id: roomId } });
+    navigate('/CreateRequestPage', { state: { user, room_id: roomId } });
   };
 
 
@@ -257,6 +257,7 @@ export const UsersPage = () => {
           <ul>
             {checkedInRooms.map((request, index) => (
               <li key={index} className="order-item">
+                <p><strong>Room Number:</strong> {request.room_number}</p>
                 <button className="write-request-btn" onClick={() => handleRequestWrite(request.reservation_id)}>
                   Write Request
                 </button>

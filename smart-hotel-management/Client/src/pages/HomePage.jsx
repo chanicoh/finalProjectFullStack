@@ -9,8 +9,7 @@ function HomePage() {
   const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
+  
   const location = useLocation();
   const navigate = useNavigate(); // Add navigate to handle navigation
   const message = location.state?.message;
@@ -21,7 +20,6 @@ function HomePage() {
   const roomsRef = useRef(null);
   const contactRef = useRef(null);
   const aboutRef = useRef(null);
-  const videoRef = useRef(null);
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -101,35 +99,6 @@ function HomePage() {
   const handleNavigate = (section) => {
     navigate(`/users?section=${section}`,{ state: { user } });
   };
-
- 
-  // Toggle play/pause
-  const togglePlayPause = () => {
-    const video = videoRef.current;
-    if (isPlaying) {
-      video.pause();
-    } else {
-      video.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  // Handle progress bar updates
-  const handleTimeUpdate = () => {
-    const video = videoRef.current;
-    const progressPercentage = (video.currentTime / video.duration) * 100;
-    setProgress(progressPercentage);
-  };
-
-  // Handle progress bar click to seek
-  const handleProgressClick = (e) => {
-    const video = videoRef.current;
-    const width = e.target.clientWidth;
-    const clickX = e.nativeEvent.offsetX;
-    const newTime = (clickX / width) * video.duration;
-    video.currentTime = newTime;
-  };
-
   
 
   return (
@@ -324,26 +293,11 @@ function HomePage() {
            full of unforgettable experiences, which can also be experienced by experiential pedaling
             on the bicycles offered for rent at the hotel's reception desk.</p>
             <div className="video-container">
-          <video
-            ref={videoRef}
+          <video controls
             className="room-video"
             src={require('../assets/video.mp4')}
-            onTimeUpdate={handleTimeUpdate}
+           
           />
-
-          {/* Custom video controls */}
-          <div className="video-controls">
-            <button className="play-pause-button" onClick={togglePlayPause}>
-              {isPlaying ? 'Pause' : 'Play'}
-            </button>
-
-            <div className="progress-container" onClick={handleProgressClick}>
-              <div
-                className="progress-bar"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
         </div>
          <div className="hotel-info">
           <h2>GOOD TO KNOW</h2>

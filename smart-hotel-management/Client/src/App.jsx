@@ -27,7 +27,7 @@ function App() {
         <Route path="/guest/dashboard" element={<GuestDashboard />} />
         <Route path="/RoomServiceDashboard" element={<RoomServiceDashboard />}/>
         <Route path="/guest/UsersPage" element={<UsersPage />} />
-        <Route path="/guest/CreateRequestPage" element={<CreateRequestPage />} />
+        <Route path="/CreateRequestPage" element={<CreateRequestPage />} />
 
 
         {/* Add more routes as needed */}

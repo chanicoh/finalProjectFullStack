@@ -250,9 +250,6 @@
 
 
 .hotel-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
   margin: 40px 0;
   padding-right: 50px;
   font-family: 'Arial', sans-serif;
@@ -277,7 +274,10 @@
 }
 
 .hotel-info ul {
-  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 20px; /* Space between the items */
+  list-style-type: none; /* Remove default list styling */
   padding: 0;
 }
 
@@ -305,6 +305,9 @@
 
 /* Media queries for iPhone */
 @media only screen and (max-width: 940px) {
+  .hotel-info ul{
+    flex-direction: column;
+  }
   .dropdown-menu{
     margin-left: 200px;
   }
@@ -333,6 +336,7 @@
   .hotel-info-container {
     flex-direction: column;
     padding: 0;
+    height: auto;
   }
   .rooms-section{
     height: auto;
