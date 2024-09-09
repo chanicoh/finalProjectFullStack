@@ -11,6 +11,7 @@ const getAllReservation = async (req, res) => {
 
 const createReservation = async (req, res, next) => {
   try {
+    console.log("hhh");
     const reservationId = await reservationModel.createReservation(req.body);
     res.status(201).json({ reservationId });
   } catch (err) {

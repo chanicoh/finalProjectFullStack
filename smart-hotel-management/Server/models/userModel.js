@@ -25,7 +25,7 @@ const getUserReservations = async (user_id) => {
     console.log('Fetching reservations for user_id:', user_id);
 
     const [rows] = await pool.query(`
-      SELECT r.room_number, r.room_type, res.check_in_date, res.check_out_date, res.status
+      SELECT r.room_number,r.room_id, r.room_type,res.reservation_id, res.check_in_date, res.check_out_date, res.status
       FROM rooms r
       JOIN reservations res ON r.room_id = res.room_id
       WHERE res.user_id = ?;

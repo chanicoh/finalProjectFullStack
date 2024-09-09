@@ -31,7 +31,6 @@ const getAvailableRoomsByType = async (req, res) => {
     else {
       droomType='PresidentialSuite';
     }
-    console.log( droomType)
     const rooms = await roomModel.getAvailableRoomsByType(droomType, checkInDate, checkOutDate);
     res.status(200).json(rooms);
   } catch (error) {

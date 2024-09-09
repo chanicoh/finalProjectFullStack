@@ -112,15 +112,22 @@ export const UsersPage = () => {
         break;
     }
   } ;
-  const handleStatusChange = async (orderId, status) => {
+  const handleStatusChange = async (reservationId, newStatus) => {
     try {
-      const response = await axios.put(`/api/orders/${orderId}/status`, { status });
-      setRoom((prevOrders) => prevOrders.map(order => 
-        order.reservation_id === orderId ? { ...order, status } : order
-      ));
+      const response = await axios.put(`/api/reservations/${reservationId}`, { status: newStatus });
+      setRoom((prevOrders) => 
+        prevOrders.map((reservation) => 
+          reservation.reservation_id === reservationId ? { ...reservation, status: newStatus } : reservation
+        )
+      );
     } catch (err) {
-      setError('Failed to update order status');
+      setError('Failed to update reservation status');
     }
+  };
+  
+  const isToday = (date) => {
+    const today = new Date().toISOString().split('T')[0];
+    return date.toISOString().split('T')[0] === today;
   };
   
 
@@ -176,30 +183,46 @@ export const UsersPage = () => {
 
       <div className="my-orders" ref={ordersRef}>
   <h2 className="section-title">My Orders</h2>
-  <ul>
-    {room && room.length > 0 ? (
-      room.map((reservation, index) => (
-        <li key={index} className="order-item">
-          <p><strong>Room Number:</strong> {reservation.room_number}</p>
-                <p><strong>Check-in:</strong> {new Date(reservation.check_in_date).toLocaleDateString()}</p>
-                <p><strong>Check-out:</strong> {new Date(reservation.check_out_date).toLocaleDateString()}</p>
-                <p><strong>Status:</strong> {reservation.status}</p>
-                {reservation.status !== 'checked_in' && (
-                  <button className="check-in-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}>
-                    Check-in
-                  </button>
-                )}
-                {reservation.status === 'checked_in' && (
-                  <button className="check-out-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}>
-                    Check-out
-                  </button>
-                )}
-        </li>
-      ))
-    ) : (
-      <p>No orders found.</p>
-    )}
-  </ul>
+ <ul>
+     
+ {room && room.length > 0 ? (
+        room.map((reservation, index) => {
+          const checkInDate = new Date(reservation.check_in_date);
+          const checkOutDate = new Date(reservation.check_out_date);
+
+          return (
+            <li key={index} className="order-item">
+              <p><strong>Room Number:</strong> {reservation.room_number}</p>
+              <p><strong>Check-in:</strong> {checkInDate.toLocaleDateString()}</p>
+              <p><strong>Check-out:</strong> {checkOutDate.toLocaleDateString()}</p>
+              <p><strong>Status:</strong> {reservation.status}</p>
+
+              {/* Check-in button */}
+              {reservation.status == 'checked_in' && isToday(checkInDate) && (
+                <button 
+                  className="check-in-btn" 
+                  onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}
+                >
+                  Check-in
+                </button>
+              )}
+
+              {/* Check-out button */}
+              {reservation.status === 'checked_out' && isToday(checkOutDate) && (
+                <button 
+                  className="check-out-btn" 
+                  onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}
+                >
+                  Check-out
+                </button>
+              )}
+            </li>
+          );
+        })
+      ) : (
+        <p>No orders found.</p>
+      )}
+      </ul>
 </div>
 
       <hr className="divider" />
