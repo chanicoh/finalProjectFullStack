@@ -87,6 +87,10 @@ export const UsersPage = () => {
     };
   }, []);
 
+  const handleRequestWrite = (roomId) => {
+    navigate('/ServiceRequest', { state: { user, room_id: roomId } });
+  };
+
 
 
   const handleNavigation=(section) => {
@@ -124,6 +128,7 @@ export const UsersPage = () => {
   if (error) return <p className="error">{error}</p>;
 
   if (!user) return <p className="error">No user data available.</p>;
+  const checkedInRooms = room?.filter(r => r.status === 'checked_in') || [];
 
   return (
     <div className="users-page">
@@ -175,10 +180,10 @@ export const UsersPage = () => {
     {room && room.length > 0 ? (
       room.map((reservation, index) => (
         <li key={index} className="order-item">
-          <strong>Room Number:</strong> {reservation.room_number}, 
-          <strong>Check-in:</strong> {new Date(reservation.check_in_date).toLocaleDateString()},
-          <strong>Check-out:</strong> {new Date(reservation.check_out_date).toLocaleDateString()},
-          <strong>Status:</strong> {reservation.status}
+          <p><strong>Room Number:</strong> {reservation.room_number}</p>
+                <p><strong>Check-in:</strong> {new Date(reservation.check_in_date).toLocaleDateString()}</p>
+                <p><strong>Check-out:</strong> {new Date(reservation.check_out_date).toLocaleDateString()}</p>
+                <p><strong>Status:</strong> {reservation.status}</p>
                 {reservation.status !== 'checked_in' && (
                   <button className="check-in-btn" onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}>
                     Check-in
@@ -217,15 +222,18 @@ export const UsersPage = () => {
       <div className="requests" ref={requestsRef}>
         <h2 className="section-title">Requests</h2>
         <ul>
-          {user.requests && user.requests.length > 0 ? (
-            user.requests.map((request, index) => (
-              <li key={index}>
-                <strong>Request ID:</strong> {request.request_id}, <strong>Room Number:</strong> {request.room_number}, <strong>Type:</strong> {request.request_type}, <strong>Description:</strong> {request.request_description}, <strong>Status:</strong> {request.status}, <strong>Created At:</strong> {new Date(request.created_at).toLocaleString()}, <strong>Updated At:</strong> {new Date(request.updated_at).toLocaleString()}
-               
+        {checkedInRooms.length > 0 ? (
+          <ul>
+            {checkedInRooms.map((request, index) => (
+              <li key={index} className="order-item">
+                <button className="write-request-btn" onClick={() => handleRequestWrite(request.reservation_id)}>
+                  Write Request
+                </button>
               </li>
-            ))
-          ) : (
-            <p>No requests found.</p>
+            ))}
+          </ul>
+        ) : (
+          <p>No rooms available for requests.</p>
           )}
         </ul>
       </div>

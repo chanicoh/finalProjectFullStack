@@ -58,6 +58,7 @@
 .order-item {
   margin-bottom: 15px;
   font-size: 1rem;
+  flex-direction: column;
 }
 
 .check-in-btn,
