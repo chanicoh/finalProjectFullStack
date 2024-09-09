@@ -61,7 +61,7 @@ function Reservation() {
       status: 'booked' // or another appropriate status
     };
     try {
-      const response = await axios.post('/api/reservations', reservationData);
+      const response = await axios.post('/api/reservation', reservationData);
       alert(`Reservation saved! Your reservation ID is ${response.data.reservationId}`);
       navigate('/', { state: { user } });
     } catch (error) {
