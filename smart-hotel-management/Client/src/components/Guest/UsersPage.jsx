@@ -12,6 +12,9 @@ export const UsersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeSection, setActiveSection] = useState();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
   
   const location = useLocation();
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
@@ -26,6 +29,9 @@ export const UsersPage = () => {
   const ordersRef = useRef(null);
   const notificationsRef = useRef(null);
   const requestsRef = useRef(null);
+
+  const handleMenuToggle = () => setMenuOpen(!menuOpen);
+
 
   useEffect(() => {
     const fetchUsers = async () => {
