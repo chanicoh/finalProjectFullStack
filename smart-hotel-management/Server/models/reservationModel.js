@@ -23,6 +23,14 @@ const getReservationById = async (reservation_id) => {
   return rows[0];
 };
 
+const updateStatus = async (reservation_id, status) => {
+  console.log('Updating reservation status for ID:', reservation_id,status); 
+  const updated_at = new Date(); // Capture current timestamp for the update
+  await pool.query(
+    `UPDATE reservations SET status = ?, updated_at = ? WHERE reservation_id = ?`,
+    [status, updated_at, reservation_id]
+  );
+};
 
 
 const updateReservation = async (reservation_id, updatedFields) => {
@@ -38,4 +46,4 @@ const deleteReservation = async (reservation_id) => {
   await pool.query(`DELETE FROM reservations WHERE reservation_id = ?`, [reservation_id]);
 };
 
-module.exports = {getAllReservation, createReservation, getReservationById, updateReservation, deleteReservation };
+module.exports = {getAllReservation, createReservation, getReservationById, updateReservation,updateStatus, deleteReservation };

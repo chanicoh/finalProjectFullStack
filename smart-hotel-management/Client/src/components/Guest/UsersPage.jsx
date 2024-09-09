@@ -114,7 +114,7 @@ export const UsersPage = () => {
   } ;
   const handleStatusChange = async (reservationId, newStatus) => {
     try {
-      const response = await axios.put(`/api/reservations/${reservationId}`, { status: newStatus });
+      const response = await axios.put(`/api/reservations/${reservationId}/status`, { status: newStatus });
       setRoom((prevOrders) => 
         prevOrders.map((reservation) => 
           reservation.reservation_id === reservationId ? { ...reservation, status: newStatus } : reservation
@@ -124,10 +124,18 @@ export const UsersPage = () => {
       setError('Failed to update reservation status');
     }
   };
+
   
-  const isToday = (date) => {
-    const today = new Date().toISOString().split('T')[0];
-    return date.toISOString().split('T')[0] === today;
+  
+  const isToday = (inputDate) => {
+    const date = new Date(inputDate); // Convert to Date object if necessary
+    const today = new Date().toLocaleDateString('en-GB'); 
+    console.log(today);
+    
+    const dateStr = date.toLocaleDateString('en-GB'); 
+    console.log(dateStr);
+    
+    return dateStr === today;
   };
   
 
@@ -198,7 +206,7 @@ export const UsersPage = () => {
               <p><strong>Status:</strong> {reservation.status}</p>
 
               {/* Check-in button */}
-              {reservation.status == 'checked_in' && isToday(checkInDate) && (
+              {reservation.status === 'booked' && isToday(checkInDate) && (
                 <button 
                   className="check-in-btn" 
                   onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}
@@ -208,7 +216,7 @@ export const UsersPage = () => {
               )}
 
               {/* Check-out button */}
-              {reservation.status === 'checked_out' && isToday(checkOutDate) && (
+              {reservation.status === 'checked_in' && isToday(checkOutDate) && (
                 <button 
                   className="check-out-btn" 
                   onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}

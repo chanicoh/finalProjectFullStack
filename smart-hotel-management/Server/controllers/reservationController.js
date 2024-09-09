@@ -41,7 +41,19 @@ const updateReservation =async (req, res, next) => {
        next(err);
     }
  };
-
+ const updateStatus = async (req, res, next) => {
+  try {
+    const { status } = req.body;
+    const reservationId = req.params.id;
+    
+    // Call the model to update the status
+    await reservationModel.updateStatus(reservationId, status);
+    
+    res.json({ message: 'Reservation status updated successfully' });
+  } catch (err) {
+    next(err);  // Pass the error to the next middleware (error handler)
+  }
+};
 
     
    const deleteReservation = async (req, res, next) => {
@@ -61,5 +73,6 @@ const updateReservation =async (req, res, next) => {
     createReservation,
     getReservationById,
     updateReservation,
+    updateStatus,
     deleteReservation
   };
