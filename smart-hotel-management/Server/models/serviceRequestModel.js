@@ -12,11 +12,11 @@ const getAllRequests = async () => {
 
 
 const createServiceRequest = async (serviceRequest) => {
-  const { user_id, room_id, request_type, description, status } = serviceRequest;
+  const { user_id, room_id, request_type, request_description, status } = serviceRequest;
   const [result] = await pool.query(
-    `INSERT INTO servicerequests (user_id, room_id, request_type, description, status)
+    `INSERT INTO servicerequests (user_id, room_id, request_type, request_description, status)
      VALUES (?, ?, ?, ?, ?)`,
-    [user_id, room_id, request_type, description, status]
+    [user_id, room_id, request_type, request_description, status]
   );
   return result.insertId;
 };
