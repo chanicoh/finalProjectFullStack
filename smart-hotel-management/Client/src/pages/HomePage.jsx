@@ -13,8 +13,10 @@ function HomePage() {
   const location = useLocation();
   const navigate = useNavigate(); // Add navigate to handle navigation
   const message = location.state?.message;
+  
   const [user, setUser] = useState(location.state?.user || null); // Manage user state
   console.log(user, message);
+
 
   const homeRef = useRef(null);
   const roomsRef = useRef(null);

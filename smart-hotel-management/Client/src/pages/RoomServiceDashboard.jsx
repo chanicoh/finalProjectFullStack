@@ -47,9 +47,9 @@ const RoomServiceDashboard = () => {
   };
 
   return (
-    <div className="dashboard-container" name="dashboardContainer">
-      <h1 className="dashboard-title" name="dashboardTitle">Room Service Dashboard</h1>
-      <table className="service-requests-table" name="serviceRequestsTable">
+    <div className="dashboard-container">
+      <h1 className="dashboard-title">Room Service Dashboard</h1>
+      <table className="service-requests-table">
         <thead>
           <tr>
             <th>Request ID</th>
@@ -72,8 +72,7 @@ const RoomServiceDashboard = () => {
                 {request.status !== 'completed' && (
                   <button 
                     onClick={() => completeServiceRequest(request.request_id)} 
-                    className="complete-button" 
-                    name={`completeButton${request.request_id}`}>
+                    className="complete-button">
                     Mark as Complete
                   </button>
                 )}

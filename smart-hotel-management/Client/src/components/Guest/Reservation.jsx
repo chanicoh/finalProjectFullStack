@@ -16,6 +16,7 @@ function Reservation() {
   const [showRooms, setShowRooms] = useState(false);
   const today = new Date().toISOString().split('T')[0];
  
+
   const fetchAvailableRooms = async () => {
     try {
       console.log(checkInDate, checkOutDate, roomType)
@@ -47,29 +48,42 @@ function Reservation() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   };
-  const saveOrder = async () => {
-    if (!selectedRoom) {
-      alert('Please select a room before saving the order.');
-      return;
-    }
-    const reservationData = {
-      user_id,
+ const saveOrder = async () => {
+  if (!selectedRoom) {
+    alert('Please select a room before saving the order.');
+    return;
+  }
+
+  const reservationData = {
+    user_id,
+    room_id: selectedRoom.room_id,
+    check_in_date: checkInDate,
+    check_out_date: checkOutDate,
+    total_price: totalPrice,
+    status: 'booked'
+  };
+
+  try {
+    console.log(reservationData);
+    const response = await axios.post('/api/reservations', reservationData);
+    console.log('Reservation saved:', response.data);
+    alert(`Reservation saved! Your reservation ID is ${response.data.reservationId}`);
+
+    // Correctly format query parameters using URLSearchParams
+    const queryString = new URLSearchParams({
       room_id: selectedRoom.room_id,
       check_in_date: checkInDate,
       check_out_date: checkOutDate,
       total_price: totalPrice,
-      status: 'booked' // or another appropriate status
-    };
-    try {
-      console.log(reservationData);
-      const response = await axios.post('/api/reservations', reservationData);
-      alert(`Reservation saved! Your reservation ID is ${response.data.reservationId}`);
-      navigate('/', { state: { user } });
-    } catch (error) {
-      console.error('Error saving the reservation', error);
-      alert('There was an error saving your reservation.');
-    }
-  };
+    }).toString();
+
+    // Navigate with correctly formed URL and state
+    navigate(`/CreateRequestPage?${queryString}`, { state: { user } });
+  } catch (error) {
+    console.error('Error saving the reservation', error);
+    alert('There was an error saving your reservation.');
+  }
+};
 
   return (
     <div className="reservation-page">

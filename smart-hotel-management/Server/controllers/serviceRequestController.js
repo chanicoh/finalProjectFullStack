@@ -19,13 +19,30 @@ const createServiceRequest = async (req, res, next) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const requestId = await serviceRequestModel.createServiceRequest(req.body);
+    // Debugging log for the incoming request body
+    console.log('Incoming request data:', req.body);
+
+    // Ensure fields match what is expected by the model
+    const serviceRequestData = {
+      user_id,
+      room_id,
+      request_type,
+      description: request_description, // Ensure this field matches the DB schema
+      status,
+    };
+
+    // Debugging log for the data being sent to the model
+    console.log('Data sent to model:', serviceRequestData);
+
+    const requestId = await serviceRequestModel.createServiceRequest(serviceRequestData);
     res.status(201).json({ requestId });
   } catch (err) {
-    console.error('Error creating service request:', err);
+    console.error('Error creating service request:', err.message); // Log specific error message
+    console.error('Stack trace:', err.stack); // Log stack trace for more detail
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 const getServiceRequestById = async (req, res, next) => {
   try {

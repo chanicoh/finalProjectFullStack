@@ -1,3 +1,4 @@
+// UsersPage.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -5,26 +6,16 @@ import axios from 'axios';
 import '../../Css/Users.css';
 
 export const UsersPage = () => {
-
-
-  const [room, setRoom] = useState(null);
-  const [request, setRequest] = useState(null);
+  const [room, setRoom] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeSection, setActiveSection] = useState();
+  const [activeSection, setActiveSection] = useState('profile');
   const [menuOpen, setMenuOpen] = useState(false);
 
-
-
-  
   const location = useLocation();
-  const navigate = useNavigate(); // Use useNavigate instead of useHistory
-  const [user, setUser] = useState(location.state?.user || null); // Destructure to get the user state value
-  const user_id = user?.user_id || ''; // Ensure user_id is defined
-  console.log("Location state:", location.state);
-
-  
-  
+  const navigate = useNavigate();
+  const [user, setUser] = useState(location.state?.user || null);
+  const user_id = user?.user_id || '';
 
   const profileRef = useRef(null);
   const ordersRef = useRef(null);
@@ -33,22 +24,13 @@ export const UsersPage = () => {
 
   const handleMenuToggle = () => setMenuOpen(!menuOpen);
 
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-    
-        const response = await axios.get(`/api/users`,{//צריך לייבא את החדרים של המשתמש
-          params : {user_id}
-        }); // Assumes an endpoint that fetches the active user's details
+        const response = await axios.get('/api/users', {
+          params: { user_id },
+        });
         setRoom(response.data);
-        setRequest(response.data);
-        console.log(response.data);
       } catch (err) {
         setError('Failed to fetch user details');
       } finally {
@@ -57,14 +39,14 @@ export const UsersPage = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const profilHeight = profileRef.current ? profileRef.current.offsetHeight : 0;
       const ordersHeight = ordersRef.current ? ordersRef.current.offsetHeight : 0;
-
+      const notificationsHeight = notificationsRef.current ? notificationsRef.current.offsetHeight : 0;
 
       if (scrollPosition <= profilHeight) {
         setActiveSection('profile');
@@ -72,7 +54,7 @@ export const UsersPage = () => {
       } else if (scrollPosition < profilHeight + ordersHeight) {
         setActiveSection('orders');
         navigate('?section=orders', { replace: true });
-      } else if (scrollPosition < profilHeight + ordersHeight + notificationsRef.current.offsetHeight) {
+      } else if (scrollPosition < profilHeight + ordersHeight + notificationsHeight) {
         setActiveSection('notifications');
         navigate('?section=notifications', { replace: true });
       } else {
@@ -85,15 +67,13 @@ export const UsersPage = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [navigate]);
 
   const handleRequestWrite = (roomId) => {
-    navigate('/CreateRequestPage', { state: { user, room_id: roomId } });
+    navigate(`/CreateRequestPage?room_id=${roomId}`, { state: { user } });
   };
 
-
-
-  const handleNavigation=(section) => {
+  const handleNavigation = (section) => {
     setActiveSection(section);
     switch (section) {
       case 'profile':
@@ -111,12 +91,13 @@ export const UsersPage = () => {
       default:
         break;
     }
-  } ;
+  };
+
   const handleStatusChange = async (reservationId, newStatus) => {
     try {
-      const response = await axios.put(`/api/reservations/${reservationId}/status`, { status: newStatus });
-      setRoom((prevOrders) => 
-        prevOrders.map((reservation) => 
+      await axios.put(`/api/reservations/${reservationId}/status`, { status: newStatus });
+      setRoom((prevOrders) =>
+        prevOrders.map((reservation) =>
           reservation.reservation_id === reservationId ? { ...reservation, status: newStatus } : reservation
         )
       );
@@ -125,31 +106,23 @@ export const UsersPage = () => {
     }
   };
 
-  
-  
   const isToday = (inputDate) => {
-    const date = new Date(inputDate); // Convert to Date object if necessary
-    const today = new Date().toLocaleDateString('en-GB'); 
-    console.log(today);
-    
-    const dateStr = date.toLocaleDateString('en-GB'); 
-    console.log(dateStr);
-    
-    return dateStr === today;
+    const date = new Date(inputDate);
+    const today = new Date().toLocaleDateString('en-GB');
+    return date.toLocaleDateString('en-GB') === today;
   };
-  
 
   if (loading) return <p className="loading">Loading user data...</p>;
   if (error) return <p className="error">{error}</p>;
-
   if (!user) return <p className="error">No user data available.</p>;
-  const checkedInRooms = room?.filter(r => r.status === 'checked_in') || [];
+
+  const checkedInRooms = room?.filter((r) => r.status === 'checked_in') || [];
 
   return (
     <div className="users-page">
       <h1 className="page-title">User Profile</h1>
       <nav className="dropdownuser">
-      <button className="hamburger-menu" onClick={handleMenuToggle}>
+        <button className="hamburger-menu" onClick={handleMenuToggle}>
           &#9776;
         </button>
         <div className={`dropdown-menuuser ${menuOpen ? 'open' : ''}`}>
@@ -181,57 +154,70 @@ export const UsersPage = () => {
       </nav>
       <div className="profile-details" ref={profileRef}>
         <h2 className="section-title">Profile Details</h2>
-        <p><strong>Name:</strong> {user.first_name} {user.last_name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Phone:</strong> {user.phone}</p>
-        <p><strong>Address:</strong> {user.address || 'N/A'}</p>
+        <p>
+          <strong>Name:</strong> {user.first_name} {user.last_name}
+        </p>
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        <p>
+          <strong>Phone:</strong> {user.phone}
+        </p>
+        <p>
+          <strong>Address:</strong> {user.address || 'N/A'}
+        </p>
       </div>
 
       <hr className="divider" />
 
       <div className="my-orders" ref={ordersRef}>
-  <h2 className="section-title">My Orders</h2>
- <ul>
-     
- {room && room.length > 0 ? (
-        room.map((reservation, index) => {
-          const checkInDate = new Date(reservation.check_in_date);
-          const checkOutDate = new Date(reservation.check_out_date);
+        <h2 className="section-title">My Orders</h2>
+        <ul>
+          {room && room.length > 0 ? (
+            room.map((reservation, index) => {
+              const checkInDate = new Date(reservation.check_in_date);
+              const checkOutDate = new Date(reservation.check_out_date);
 
-          return (
-            <li key={index} className="order-item">
-              <p><strong>Room Number:</strong> {reservation.room_number}</p>
-              <p><strong>Check-in:</strong> {checkInDate.toLocaleDateString()}</p>
-              <p><strong>Check-out:</strong> {checkOutDate.toLocaleDateString()}</p>
-              <p><strong>Status:</strong> {reservation.status}</p>
+              return (
+                <li key={index} className="order-item">
+                  <p>
+                    <strong>Room Number:</strong> {reservation.room_number}
+                  </p>
+                  <p>
+                    <strong>Check-in:</strong> {checkInDate.toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Check-out:</strong> {checkOutDate.toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Status:</strong> {reservation.status}
+                  </p>
 
-              {/* Check-in button */}
-              {reservation.status === 'booked' && isToday(checkInDate) && (
-                <button 
-                  className="check-in-btn" 
-                  onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}
-                >
-                  Check-in
-                </button>
-              )}
+                  {reservation.status === 'booked' && isToday(checkInDate) && (
+                    <button
+                      className="check-in-btn"
+                      onClick={() => handleStatusChange(reservation.reservation_id, 'checked_in')}
+                    >
+                      Check-in
+                    </button>
+                  )}
 
-              {/* Check-out button */}
-              {reservation.status === 'checked_in' && isToday(checkOutDate) && (
-                <button 
-                  className="check-out-btn" 
-                  onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}
-                >
-                  Check-out
-                </button>
-              )}
-            </li>
-          );
-        })
-      ) : (
-        <p>No orders found.</p>
-      )}
-      </ul>
-</div>
+                  {reservation.status === 'checked_in' && isToday(checkOutDate) && (
+                    <button
+                      className="check-out-btn"
+                      onClick={() => handleStatusChange(reservation.reservation_id, 'checked_out')}
+                    >
+                      Check-out
+                    </button>
+                  )}
+                </li>
+              );
+            })
+          ) : (
+            <p>No orders found.</p>
+          )}
+        </ul>
+      </div>
 
       <hr className="divider" />
 
@@ -252,25 +238,17 @@ export const UsersPage = () => {
 
       <div className="requests" ref={requestsRef}>
         <h2 className="section-title">Requests</h2>
-        <ul>
-        {checkedInRooms.length > 0 ? (
-          <ul>
-            {checkedInRooms.map((request, index) => (
-              <li key={index} className="order-item">
-                <p><strong>Room Number:</strong> {request.room_number}</p>
-                <button className="write-request-btn" onClick={() => handleRequestWrite(request.reservation_id)}>
-                  Write Request
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No rooms available for requests.</p>
-          )}
-        </ul>
+        {checkedInRooms.map((room, index) => (
+          <div key={index}>
+            <p>
+              <strong>Room:</strong> {room.room_number}
+            </p>
+            <button className="create-request-btn" onClick={() => handleRequestWrite(room.room_id)}>
+              Write Request
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-export default UsersPage;

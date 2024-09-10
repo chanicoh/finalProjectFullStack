@@ -11,13 +11,22 @@ const getAllReservation = async (req, res) => {
 
 const createReservation = async (req, res, next) => {
   try {
-    console.log("hhh");
-    const reservationId = await reservationModel.createReservation(req.body);
+    console.log("Request Body:", req.body); // Log request body for debugging
+    const reservationData = req.body;
+
+    if (!reservationData.user_id || !reservationData.room_id || !reservationData.check_in_date || !reservationData.check_out_date || !reservationData.total_price || !reservationData.status) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const reservationId = await reservationModel.createReservation(reservationData);
     res.status(201).json({ reservationId });
   } catch (err) {
+    console.error("Error creating reservation:", err); // Log error details
     next(err);
   }
 };
+
+
 
 const getReservationById = async (req, res, next) => {
   try {

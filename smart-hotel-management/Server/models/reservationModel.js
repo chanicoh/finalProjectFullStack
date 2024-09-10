@@ -8,15 +8,19 @@ const getAllReservation = async () => {
 
 const createReservation = async (reservation) => {
   const { user_id, room_id, check_in_date, check_out_date, total_price, status } = reservation;
-  const created_at = new Date(); // Current timestamp for creation
-  const updated_at = created_at; // Same timestamp for creation and update
+  const created_at = new Date();
+  const updated_at = created_at;
+
   const [result] = await pool.query(
     `INSERT INTO reservations (user_id, room_id, check_in_date, check_out_date, total_price, status, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
     [user_id, room_id, check_in_date, check_out_date, total_price, status, created_at, updated_at]
   );
-  return result.insertId; // Returns the auto-generated reservation_id
+
+  return result.insertId;
 };
+
+
 
 const getReservationById = async (reservation_id) => {
   const [rows] = await pool.query(`SELECT * FROM reservations WHERE reservation_id = ?`, [reservation_id]);

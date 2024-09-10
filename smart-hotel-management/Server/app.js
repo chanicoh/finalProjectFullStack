@@ -41,7 +41,7 @@ const authRoutes = require('./routes/authRoutes');
 
 app.use('/api', userRoutes);
 app.use('/api', billingRoutes);
-app.use('/api', reservationRoutes);
+app.use('/api/reservations', reservationRoutes); 
 app.use('/api', serviceRequestRoutes);
 app.use('/api', authRoutes);
 app.use('/api', roomRoutes);
