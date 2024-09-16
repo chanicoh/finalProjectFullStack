@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 import '../Css/HomePage.css';
 import '../assets/hotelHOME.png';
 
 function HomePage() {
   //
-  const [rooms, setRooms] = useState([]);
+  //const [rooms, setRooms] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
@@ -23,19 +23,19 @@ function HomePage() {
   const contactRef = useRef(null);
   const aboutRef = useRef(null);
 
-  useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await axios.get('/api/rooms');
-        setRooms(response.data);
-      } catch (error) {
-        console.error('Failed to fetch rooms', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchRooms = async () => {
+  //     try {
+  //       //const response = await axios.get('/api/rooms');
+  //       //setRooms(response.data);
+  //     } catch (error) {
+  //       console.error('Failed to fetch rooms', error);
+  //     }
+  //   };
 
     
-    fetchRooms();
-  }, []);
+  //   fetchRooms();
+  // }, []);
 
   useEffect(() => {
     if (user) {

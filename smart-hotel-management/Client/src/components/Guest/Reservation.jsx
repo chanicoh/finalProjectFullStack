@@ -76,9 +76,8 @@ function Reservation() {
       check_out_date: checkOutDate,
       total_price: totalPrice,
     }).toString();
+    navigate('/', { state: { user } });
 
-    // Navigate with correctly formed URL and state
-    navigate(`/CreateRequestPage?${queryString}`, { state: { user } });
   } catch (error) {
     console.error('Error saving the reservation', error);
     alert('There was an error saving your reservation.');
